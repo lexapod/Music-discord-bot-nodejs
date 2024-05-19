@@ -26,14 +26,14 @@ const mapPlayers = new Map<string, playerDiscordBot>();
 const eventNewMusic = new EventEmitter();
 
 eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
-  
+
 	if (!message.member?.voice?.channel?.id || !message.guild?.id) {
 		return;
 	}
 
 	try {
 		if (mapPlayers.has(message.guild.id)) {
-			const player = mapPlayers.get(message.guild.id);
+			const player = mapPlayers.get(message.guild.id)
 			if (!player) return;
 			return await player.addMusicInQueue(youtubeUrl);
 		}
@@ -57,6 +57,7 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 			[],
 			client,
 		);
+    
 		mapPlayers.set(message.guild.id, player);
 		await player.play(youtubeUrl);
 		player.VoiceConnection.subscribe(player.Audioplayer);

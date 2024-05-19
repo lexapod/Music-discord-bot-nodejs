@@ -113,7 +113,10 @@ export class playerDiscordBot {
 		for (let i = 0; i < 3; i++) {
 			try {
 				resource = await this.downloadResoreses(youtubeUrl);
-			} catch (error) {}
+        break
+			} catch (error) {
+        console.log(error)
+      }
 		}
 		if (resource) {
 			this.Audioplayer.play(resource);
@@ -151,9 +154,7 @@ export class playerDiscordBot {
 		try {
 			this.VoiceConnection?.destroy();
 		} catch (error) {}
-		try {
-			//not good
-		} catch (error) {}
+	
 	}
 	async sendAlertInchat(text: string, youtubeUrl: string) {
 		try {
