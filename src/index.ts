@@ -170,9 +170,8 @@ client.on("messageCreate", async (message: Message) => {
 		console.log(mapPlayers);
 		return;
 	}
-	if (message.author.bot) return;
+	if (message.author.bot || !message.guild?.id) return;
 	//i think it's happened never but type ts say it's optional
-	if (message.guild?.id === undefined) return;
 
 	const isPlay = message.content.startsWith("?play");
 
