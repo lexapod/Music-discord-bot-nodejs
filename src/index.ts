@@ -10,7 +10,7 @@ import {
 } from "@discordjs/voice";
 import play from "play-dl";
 
-const config = require("../config.json");
+import config  from "../config.json"
 
 const COOKIE: string = config.COOCKIEYT;
 const TOKEN: string = config.discordToken;

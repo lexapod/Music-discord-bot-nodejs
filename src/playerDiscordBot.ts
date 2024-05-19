@@ -4,14 +4,14 @@ import type {
 	VoiceConnection,
 	VoiceConnectionState,
 } from "@discordjs/voice";
-import type { Embed } from "discord.js";
-import type { Client } from "discord.js";
-import Discord = require("discord.js");
+import type { Embed, Client } from "discord.js";
+
+import Discord from "discord.js";
 import { createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
 import play from "play-dl";
-import ytdl = require("ytdl-core-discord");
+import ytdl from "ytdl-core-discord";
 
-const config = require("../config.json");
+import config from "../config.json";
 
 const COOKIE: string = config.COOCKIEYT;
 const TOKEN: string = config.discordToken;
