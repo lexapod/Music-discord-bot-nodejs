@@ -34,14 +34,14 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 
   try {
     if (mapPlayers.has(message.guild?.id)) {
-      const player = mapPlayers.get(message.guild!.id);
+      const player = mapPlayers.get(message.guild.id);
       if (!player) return;
       return await player.addMusicInQueue(youtubeUrl);
-    } else {
+    } 
       const connection: VoiceConnection = joinVoiceChannel({
-        channelId: message.member?.voice?.channel!.id,
-        guildId: message.guild!.id,
-        adapterCreator: message.guild!.voiceAdapterCreator,
+        channelId: message.member?.voice?.channel.id,
+        guildId: message.guild?.id,
+        adapterCreator: message.guild?.voiceAdapterCreator,
       });
       const playerAudio: AudioPlayer = createAudioPlayer({
         behaviors: { noSubscriber: NoSubscriberBehavior.Play },
@@ -50,22 +50,22 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
       if (!playerAudio) throw new Error("Player not allowed");
 
       const player = new playerDiscordBot(
-        message.guild!.id,
-        message.member?.voice?.channel!.id,
+        message.guild.id,
+        message.member?.voice?.channel.id,
         message.channel.id,
         playerAudio,
         connection,
         [],
         client
       );
-      mapPlayers.set(message.guild!.id, player);
+      mapPlayers.set(message.guild.id, player);
       await player.play(youtubeUrl);
       player.VoiceConnection.subscribe(player.Audioplayer);
       await player.addListnerOnPlayer();
       await player.sendAlertInchat("Трек добавлен!", youtubeUrl);
 
       return;
-    }
+    
   } catch (error) {
     console.log(error);
     return await message.reply("Ошибка при добавлении в очередь!");
@@ -190,17 +190,17 @@ client.on(
       if (!player) return;
 
       if (oldState.serverMute && !newState.serverMute) {
-        console.log(`Bot has been unmuted.`);
+        console.log("Bot has been unmuted.");
         await player.unpause();
       } else if (!oldState.serverMute && newState.serverMute) {
         await player.pause();
-        console.log(`Bot has been muted.`);
+        console.log("Bot has been muted.");
       }
 
       if (oldState.channelId && !newState.channelId) {
         const player = mapPlayers.get(oldState.guild.id);
         if (!player) return;
-        console.log(`Bot has been kicked from voice channel.`);
+        console.log("Bot has been kicked from voice channel.");
         await player.disconect();
         await player.sendSimpleAlert("Ок, пока.");
         mapPlayers.delete(oldState.guild.id);
