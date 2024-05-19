@@ -1,15 +1,9 @@
-import type {
-  AudioPlayer,
-  AudioResource,
-  VoiceConnection,
-
-} from "@discordjs/voice";
-import type { Embed, Message, VoiceState } from "discord.js";
+import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
+import type { Message, VoiceState } from "discord.js";
 import { GatewayIntentBits, Client } from "discord.js";
 
 import {
   createAudioPlayer,
-  createAudioResource,
   joinVoiceChannel,
   NoSubscriberBehavior,
   AudioPlayerStatus,
