@@ -10,7 +10,7 @@ import {
 } from "@discordjs/voice";
 import play from "play-dl";
 
-import config  from "../config.json"
+import config from "../config.json";
 
 const COOKIE: string = config.COOCKIEYT;
 const TOKEN: string = config.discordToken;
@@ -26,10 +26,8 @@ const mapPlayers = new Map<string, playerDiscordBot>();
 const eventNewMusic = new EventEmitter();
 
 eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
-	if (!message.member?.voice?.channel?.id) {
-		return;
-	}
-	if (!message.guild?.id) {
+  
+	if (!message.member?.voice?.channel?.id || !message.guild?.id) {
 		return;
 	}
 
