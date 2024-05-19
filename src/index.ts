@@ -16,11 +16,12 @@ const COOKIE: string = config.COOCKIEYT;
 const TOKEN: string = config.discordToken;
 
 if (!(COOKIE && TOKEN)) {
-	throw new TypeError("Config json please insert COOKIE or Tokens");
+	throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
 }
 
 import EventEmitter from "node:events";
 import { playerDiscordBot } from "./playerDiscordBot";
+
 const mapPlayers = new Map<string, playerDiscordBot>();
 const eventNewMusic = new EventEmitter();
 
@@ -33,15 +34,15 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 	}
 
 	try {
-		if (mapPlayers.has(message.guild?.id)) {
+		if (mapPlayers.has(message.guild.id)) {
 			const player = mapPlayers.get(message.guild.id);
 			if (!player) return;
 			return await player.addMusicInQueue(youtubeUrl);
 		}
 		const connection: VoiceConnection = joinVoiceChannel({
-			channelId: message.member?.voice?.channel.id,
-			guildId: message.guild?.id,
-			adapterCreator: message.guild?.voiceAdapterCreator,
+			channelId: message.member?.voice.channel.id,
+			guildId: message.guild.id,
+			adapterCreator: message.guild.voiceAdapterCreator,
 		});
 		const playerAudio: AudioPlayer = createAudioPlayer({
 			behaviors: { noSubscriber: NoSubscriberBehavior.Play },
@@ -51,7 +52,7 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 
 		const player = new playerDiscordBot(
 			message.guild.id,
-			message.member?.voice?.channel.id,
+			message.member.voice.channel.id,
 			message.channel.id,
 			playerAudio,
 			connection,
@@ -114,27 +115,11 @@ const commandList = [
 	"?resume",
 	"?stop",
 ];
-// @ts-ignore
-client.on("messageCreate", async (message: Message) => {
-	if (message.content.startsWith("?debug")) {
-		console.log(mapPlayers);
-		return;
-	}
-	if (message.author.bot) return;
-	//i think it's happened never but type ts say it's optional
-	if (message.guild?.id === undefined) return;
 
-	const isPlay = message.content.startsWith("?play");
-
-	if (commandList.includes(message.content) || !isPlay) {
-		const voiceChannel = message.member?.voice?.channel;
-		if (!voiceChannel) return await message.channel.send("В войс зайди пидр");
-	}
-	const player = mapPlayers.get(message.guild.id);
-
-	if (!player && !isPlay) {
-		return await message.channel.send("Бот не играет. Иди нахуй");
-	}
+async function handleCommands(
+	player: playerDiscordBot | undefined,
+	message: Message,
+) {
 	if (message.content.startsWith("?play")) {
 		try {
 			const YoutubeURL: string = message.content.split("play ")[1];
@@ -178,34 +163,71 @@ client.on("messageCreate", async (message: Message) => {
 		mapPlayers.delete(player.guildID);
 		return;
 	}
-});
+}
+// @ts-ignore
+client.on("messageCreate", async (message: Message) => {
+	if (message.content.startsWith("?debug")) {
+		console.log(mapPlayers);
+		return;
+	}
+	if (message.author.bot) return;
+	//i think it's happened never but type ts say it's optional
+	if (message.guild?.id === undefined) return;
 
+	const isPlay = message.content.startsWith("?play");
+
+	if (commandList.includes(message.content) || !isPlay) {
+		const voiceChannel = message.member?.voice?.channel;
+		if (!voiceChannel) return await message.channel.send("В войс зайди пидр");
+	}
+	const player = mapPlayers.get(message.guild.id);
+
+	if (!player && !isPlay) {
+		return await message.channel.send("Бот не играет. Иди нахуй");
+	}
+	await handleCommands(player, message);
+});
+async function checkMute(
+	player: playerDiscordBot,
+	oldState: VoiceState,
+	newState: VoiceState,
+) {
+	if (oldState.serverMute && !newState.serverMute) {
+		console.log("Bot has been unmuted.");
+		await player.unpause();
+	} else if (!oldState.serverMute && newState.serverMute) {
+		await player.pause();
+		console.log("Bot has been muted.");
+	}
+}
+async function checkKick(
+	player: playerDiscordBot,
+	oldState: VoiceState,
+	newState: VoiceState,
+) {
+	if (oldState.channelId && !newState.channelId) {
+		console.log("Bot has been kicked from voice channel.");
+		await player.disconect();
+		await player.sendSimpleAlert("Ок, пока.");
+		mapPlayers.delete(oldState.guild.id);
+		console.log("success clear");
+	}
+}
+async function checkStatusbot(oldState: VoiceState, newState: VoiceState) {
+	if (oldState?.member?.user.bot) {
+		//muted or not muted
+		const player = mapPlayers.get(oldState.guild.id);
+
+		if (!player) return;
+
+		await checkMute(player, oldState, newState);
+		await checkKick(player, oldState, newState);
+	}
+}
 client.on(
 	"voiceStateUpdate",
 	async (oldState: VoiceState, newState: VoiceState) => {
-		if (oldState?.member?.user.bot) {
-			//muted or not muted
-			const player = mapPlayers.get(oldState.guild.id);
-			if (!player) return;
-
-			if (oldState.serverMute && !newState.serverMute) {
-				console.log("Bot has been unmuted.");
-				await player.unpause();
-			} else if (!oldState.serverMute && newState.serverMute) {
-				await player.pause();
-				console.log("Bot has been muted.");
-			}
-
-			if (oldState.channelId && !newState.channelId) {
-				const player = mapPlayers.get(oldState.guild.id);
-				if (!player) return;
-				console.log("Bot has been kicked from voice channel.");
-				await player.disconect();
-				await player.sendSimpleAlert("Ок, пока.");
-				mapPlayers.delete(oldState.guild.id);
-				console.log("success clear");
-			}
-		}
+		await checkStatusbot(oldState, newState);
 	},
 );
 
