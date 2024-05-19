@@ -14,11 +14,11 @@ import ytdl from "ytdl-core-discord";
 import config from "../config.json";
 
 const COOKIE: string = config.COOCKIEYT;
-const TOKEN: string = config.discordToken;
 
-if (!(COOKIE && TOKEN)) {
-	throw new TypeError("Config json please insert COOKIE or Tokens");
+if (!COOKIE) {
+	throw new TypeError("Config.json please insert COOKIE ");
 }
+
 type youtubeInfo = {
 	url: string;
 };
@@ -113,10 +113,10 @@ export class playerDiscordBot {
 		for (let i = 0; i < 3; i++) {
 			try {
 				resource = await this.downloadResoreses(youtubeUrl);
-        break
+				break;
 			} catch (error) {
-        console.log(error)
-      }
+				console.log(error);
+			}
 		}
 		if (resource) {
 			this.Audioplayer.play(resource);
@@ -154,7 +154,6 @@ export class playerDiscordBot {
 		try {
 			this.VoiceConnection?.destroy();
 		} catch (error) {}
-	
 	}
 	async sendAlertInchat(text: string, youtubeUrl: string) {
 		try {
