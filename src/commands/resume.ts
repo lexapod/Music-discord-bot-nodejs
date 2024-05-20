@@ -6,9 +6,6 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 
 import { botReplys } from "../consts/bot-replys";
 
-
-
-
 export const resumeCommand: Command = {
 	name: "resume",
 	description: "resume",
