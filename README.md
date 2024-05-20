@@ -7,3 +7,6 @@ allows listen music from Youtube
 4. Rename configExample to config
 5. npm run start
 6. Add bot on your server  and enjoy
+
+
+Docker support

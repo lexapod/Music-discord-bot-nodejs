@@ -196,9 +196,11 @@ export class playerDiscordBot {
 	}
 	async addListnerOnPlayer() {
 		this.Audioplayer.on(
+			//@ts-ignore
 			"stateChange",
 			async (
 				oldState: VoiceConnectionState,
+
 				newState: VoiceConnectionState,
 			) => {
 				if (newState.status !== oldState.status) {
