@@ -26,6 +26,7 @@ import { stop } from "./commands/stop";
 import { resume } from "./commands/resume";
 import { pause } from "./commands/pause";
 import { playCommand } from "./commands/play";
+import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
 
 const commandList = [
 	"?play",
@@ -168,47 +169,11 @@ client.on("messageCreate", async (message: Message) => {
 
 	await handleCommands(player, message);
 });
-async function checkMute(
-	player: playerDiscordBot,
-	oldState: VoiceState,
-	newState: VoiceState,
-) {
-	if (oldState.serverMute && !newState.serverMute) {
-		console.log("Bot has been unmuted.");
-		await player.unpause();
-	} else if (!oldState.serverMute && newState.serverMute) {
-		await player.pause();
-		console.log("Bot has been muted.");
-	}
-}
-async function checkKick(
-	player: playerDiscordBot,
-	oldState: VoiceState,
-	newState: VoiceState,
-) {
-	if (oldState.channelId && !newState.channelId) {
-		console.log("Bot has been kicked from voice channel.");
-		await player.disconect();
-		await player.sendSimpleAlert("Ок, пока.");
-		mapPlayers.delete(oldState.guild.id);
-		console.log("success clear");
-	}
-}
-async function checkStatusbot(oldState: VoiceState, newState: VoiceState) {
-	if (oldState?.member?.user.bot) {
-		//muted or not muted
-		const player = mapPlayers.get(oldState.guild.id);
 
-		if (!player) return;
-
-		await checkMute(player, oldState, newState);
-		await checkKick(player, oldState, newState);
-	}
-}
 client.on(
 	"voiceStateUpdate",
 	async (oldState: VoiceState, newState: VoiceState) => {
-		await checkStatusbot(oldState, newState);
+		await checkStatusbot(oldState, newState, mapPlayers);
 	},
 );
 
