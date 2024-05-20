@@ -44,7 +44,7 @@ export async function handleCommands(
 
   const command = commandRegistry[commandName];
   
-  if (!command) {
+  if (!command?.execute) {
     return await message.channel.send(botReplys.unknownCommand);
   }
 
