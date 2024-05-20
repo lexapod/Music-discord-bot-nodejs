@@ -1,6 +1,5 @@
 
 import type { playerDiscordBot } from "../playerDiscordBot";
-
 import type { mapPlayers } from "../index";
 
 export async function stop(player: playerDiscordBot, mapPlayers: mapPlayers) {

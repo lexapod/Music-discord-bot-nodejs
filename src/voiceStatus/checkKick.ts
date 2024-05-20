@@ -4,8 +4,6 @@ import type {mapPlayers} from '../index'
 
 import { botReplys } from "../consts/botReplys";
 
-
-
 export async function checkKick(
 	player: playerDiscordBot,
 	oldState: VoiceState,

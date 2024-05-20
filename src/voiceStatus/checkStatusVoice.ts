@@ -4,7 +4,6 @@ import type {mapPlayers} from '../index'
 import { checkKick } from "./checkKick";
 import { checkMute } from "./checkMute";
 
-
 export async function checkStatusbot(
 	oldState: VoiceState,
 	newState: VoiceState,

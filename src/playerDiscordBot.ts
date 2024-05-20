@@ -208,10 +208,10 @@ export class playerDiscordBot {
 						String(AudioPlayerStatus.Idle).toLowerCase()
 					) {
 						//ojjdanie
-						console.log("Poluchau history");
+						console.log("Get History");
 						while (true) {
 							if (this.queue.length !== 0) {
-								console.log("history have some music");
+								console.log(`History have ${this.queue.length} tracks`);
 								const music = this.queue.shift();
 								if (!music) {
 									break;

@@ -22,6 +22,7 @@ export async function handleCommands(
 		return await play(message, mapPlayers, client);
 	}
 	if (!player) return;
+	
 	// Команда skip
 	if (message.content.startsWith("?skip")) {
 		return await skip(player, message);
