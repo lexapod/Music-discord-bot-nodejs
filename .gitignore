@@ -14,7 +14,7 @@ config.json
 .DS_STORE
 mu.sh
 backup
-autorize.js
+
 .data
 # Runtime data
 pids
