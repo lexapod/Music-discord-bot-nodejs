@@ -1,12 +1,11 @@
 import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
 import type { Message, VoiceState } from "discord.js";
-import { GatewayIntentBits, Client } from "discord.js";
 
+import { GatewayIntentBits, Client } from "discord.js";
 import {
 	createAudioPlayer,
 	joinVoiceChannel,
 	NoSubscriberBehavior,
-	AudioPlayerStatus,
 } from "@discordjs/voice";
 import play from "play-dl";
 
@@ -21,6 +20,24 @@ if (!(COOKIE && TOKEN)) {
 
 import EventEmitter from "node:events";
 import { playerDiscordBot } from "./playerDiscordBot";
+
+import { skip } from "./commands/skip";
+import { stop } from "./commands/stop";
+import { resume } from "./commands/resume";
+import { pause } from "./commands/pause";
+import { playCommand } from "./commands/play";
+
+const commandList = [
+	"?play",
+	"?skip",
+	"?skip",
+	"?debug",
+	"?pause",
+	"?resume",
+	"?stop",
+];
+
+type mapPlayers = Map<string, playerDiscordBot>;
 
 const mapPlayers = new Map<string, playerDiscordBot>();
 const eventNewMusic = new EventEmitter();
@@ -102,16 +119,6 @@ const client = new Client({
 	// partials: ["CHANNEL", "MESSAGE"],
 });
 
-const commandList = [
-	"?play",
-	"?skip",
-	"?skip",
-	"?debug",
-	"?pause",
-	"?resume",
-	"?stop",
-];
-
 async function handleCommands(
 	player: playerDiscordBot | undefined,
 	message: Message,
@@ -121,47 +128,24 @@ async function handleCommands(
 		return;
 	}
 	if (message.content.startsWith("?play")) {
-		try {
-			const YoutubeURL: string = message.content.split("play ")[1];
-			if (!YoutubeURL) {
-				throw new Error("Url not found");
-			}
-			eventNewMusic.emit("newMusic", message, YoutubeURL);
-		} catch (e) {
-			console.log(e);
-			return await message.reply("Попробуй подумать");
-		}
+		return await playCommand(eventNewMusic, message);
 	}
 	if (!player) return;
 	// Команда skip
 	if (message.content.startsWith("?skip")) {
-		if (player.queue.length < 0) return await message.channel.send("Нехуй скипать");
-		await player.skip();
-		return await message.reply(
-			`Скипнул хуйню\n${player.queue.length} Осталось треков`,
-		);
+		return await skip(player, message);
 	}
 	// Команда паузы
 	if (message.content.startsWith("?pause")) {
-		if (player.Audioplayer.state.status === AudioPlayerStatus.Paused) {
-		}
-		player.pause();
-		return message.channel.send("Трек на паузе");
+		return await pause(player, message);
 	}
 	// Команда продолжения после паузы
 	if (message.content.startsWith("?resume")) {
-		if (player.Audioplayer.state.status === AudioPlayerStatus.Playing) {
-			return await message.channel.send("Музыка и так играет");
-		}
-		player.unpause();
-		return await message.channel.send("Продолжаем бал");
+		return await resume(player, message);
 	}
 	// Команда выключения
 	if (message.content.startsWith("?stop")) {
-		await player.stop();
-		await player.disconect();
-		mapPlayers.delete(player.guildID);
-		return;
+		return await stop(player, mapPlayers);
 	}
 }
 // @ts-ignore
@@ -175,11 +159,13 @@ client.on("messageCreate", async (message: Message) => {
 		const voiceChannel = message.member?.voice?.channel;
 		if (!voiceChannel) return await message.channel.send("В войс зайди пидр");
 	}
+
 	const player = mapPlayers.get(message.guild.id);
 
 	if (!player && !isPlay) {
 		return await message.channel.send("Бот не играет. Иди нахуй");
 	}
+
 	await handleCommands(player, message);
 });
 async function checkMute(
