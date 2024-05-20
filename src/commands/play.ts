@@ -17,14 +17,10 @@ export const playCommand: Command = {
 };
 
 async function play(message: Message, mapPlayers: mapPlayers, client: Client) {
-  try {
-    const YoutubeURL: string = message.content.split("play ")[1];
-    if (!YoutubeURL) {
-      throw new Error("Url not found");
-    }
-    await newMusic(message, YoutubeURL, mapPlayers, client);
-  } catch (e) {
-    console.log(e);
+  const YoutubeURL: string = message.content.split("play ")[1];
+  if (!YoutubeURL) {
     return await message.reply(botReplys.wrongUrlProvided);
   }
+
+  await newMusic(message, YoutubeURL, mapPlayers, client);
 }
