@@ -9,7 +9,7 @@ import { botReplys } from "../consts/bot-replys";
 import { newMusic } from "../new-music/new-music";
 
 export const playCommand: Command = {
-  name: "?play",
+  name: "play",
   description: "play",
   execute: async ({ message, mapPlayers, client }: CommandExecuteArgs) => {
     await play(message, mapPlayers, client);

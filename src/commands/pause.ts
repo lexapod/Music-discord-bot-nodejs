@@ -1,12 +1,12 @@
 import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
+import type { Command, CommandExecuteArgs } from "../handler-commands/handler-commands";
 
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { botReplys } from "../consts/bot-replys";
-import type { Command, CommandExecuteArgs } from "../handler-commands/handler-commands";
 
 export const pauseCommand: Command = {
-	name: "?pause",
+	name: "pause",
 	description: "pause",
 	execute: async ({ player, message }: CommandExecuteArgs) => {
 		if (!player ) return
