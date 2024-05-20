@@ -25,7 +25,7 @@ type youtubeInfo = {
 
 type queueYoutube = youtubeInfo[];
 
-async function cute_yt(
+async function createYoutubeEmbed(
 	videoUrl: string,
 	text: string,
 	length: number,
@@ -48,7 +48,9 @@ async function cute_yt(
 	const seconds: string = new Date(videoInfo?.videoDetails.lengthSeconds * 1000)
 		.toUTCString()
 		.split(/ /)[4];
+
 	let description: string = videoInfo?.videoDetails.description || "хуета";
+
 	if (description.length > 4080) {
 		description = description.substr(0, 4080);
 	}
@@ -101,7 +103,7 @@ export class playerDiscordBot {
 		this.queue.push({ url });
 		await this.sendAlertInchat("Добавлено в очередь!", url);
 	}
-	async downloadResoreses(youtubeUrl: string) {
+	async downloadResoreses(youtubeUrl: string): Promise<AudioResource<unknown>> {
 		const stream = await play.stream(youtubeUrl);
 		const resource: AudioResource = createAudioResource(stream.stream, {
 			inputType: stream.type,
@@ -161,7 +163,11 @@ export class playerDiscordBot {
 				this.chatID,
 			) as Discord.TextChannel;
 
-			const embeds1 = await cute_yt(youtubeUrl, text, this.queue.length);
+			const embeds1 = await createYoutubeEmbed(
+				youtubeUrl,
+				text,
+				this.queue.length,
+			);
 			await channel.send({ embeds: [embeds1] });
 		} catch (error) {
 			console.log(error);

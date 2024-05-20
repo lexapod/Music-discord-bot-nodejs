@@ -135,7 +135,7 @@ async function handleCommands(
 	if (!player) return;
 	// Команда skip
 	if (message.content.startsWith("?skip")) {
-		if (player.queue.length < 0) return message.channel.send("Нехуй скипать");
+		if (player.queue.length < 0) return await message.channel.send("Нехуй скипать");
 		await player.skip();
 		return await message.reply(
 			`Скипнул хуйню\n${player.queue.length} Осталось треков`,
