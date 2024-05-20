@@ -13,7 +13,7 @@ import ytdl from "ytdl-core-discord";
 
 import config from "../config.json";
 
-const COOKIE: string = config.COOCKIEYT;
+const COOKIE: string = config.COOCKIEFORYOUTUBE;
 
 if (!COOKIE) {
 	throw new TypeError("Config.json please insert COOKIE ");

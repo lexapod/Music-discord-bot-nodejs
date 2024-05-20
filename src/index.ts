@@ -11,8 +11,8 @@ import play from "play-dl";
 
 import config from "../config.json";
 
-const COOKIE: string = config.COOCKIEYT;
-const TOKEN: string = config.discordToken;
+const COOKIE: string = config.COOCKIEFORYOUTUBE;
+const TOKEN: string = config.DISCORDBOTTOKEN;
 
 if (!(COOKIE && TOKEN)) {
 	throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
