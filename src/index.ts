@@ -70,10 +70,12 @@ client.on("messageCreate", async (message: Message) => {
     return await message.channel.send(botReplys.userNotInVoice);
 
   const player = mapPlayers.get(message.guild.id);
-
-  await handleCommands(player, message, mapPlayers, client).catch(
-    console.error
-  );
+try {
+	await handleCommands(player, message, mapPlayers, client)
+} catch (error) {
+	console.log(error)
+}
+ 
 });
 
 client.on(

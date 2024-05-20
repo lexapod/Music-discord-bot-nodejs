@@ -147,11 +147,11 @@ export class playerDiscordBot {
     try {
       this.queue = [];
       this.Audioplayer.off;
-      this.Audioplayer?.stop();
+      this.Audioplayer.stop();
     } catch (error) {}
 
     try {
-      this.VoiceConnection?.destroy();
+      this.VoiceConnection.destroy();
     } catch (error) {}
   }
   async sendAlertInchat(text: string, youtubeUrl: string) {
@@ -167,6 +167,7 @@ export class playerDiscordBot {
       );
       await channel.send({ embeds: [embedYoutube] });
     } catch (error) {
+      await this.sendSimpleAlert(botReplys.errorAddInQueue)
       console.log(error);
     }
   }

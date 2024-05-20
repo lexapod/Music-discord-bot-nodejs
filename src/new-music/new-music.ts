@@ -52,6 +52,8 @@ export async function newMusic(
     await player.addListnerOnPlayer();
     await player.sendAlertInchat(botReplys.trackAddedSuccess, youtubeUrl);
   } catch (error) {
+    await mapPlayers.get(message.guild.id)?.disconect();
+    mapPlayers.delete(message.guild.id)
     console.log(error);
     await message.reply(botReplys.errorAddInQueue);
   }
