@@ -1,5 +1,6 @@
 import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../playerDiscordBot";
+
 import { AudioPlayerStatus } from "@discordjs/voice";
 
 export async function resume(player: playerDiscordBot, message: Message) {

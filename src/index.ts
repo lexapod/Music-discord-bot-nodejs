@@ -21,12 +21,8 @@ if (!(COOKIE && TOKEN)) {
 import EventEmitter from "node:events";
 import { playerDiscordBot } from "./playerDiscordBot";
 
-import { skip } from "./commands/skip";
-import { stop } from "./commands/stop";
-import { resume } from "./commands/resume";
-import { pause } from "./commands/pause";
-import { playCommand } from "./commands/play";
 import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
+import { handleCommands } from "./commands/handlerCommands/handlerCommands";
 
 const commandList = [
 	"?play",
@@ -78,8 +74,6 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 		player.VoiceConnection.subscribe(player.Audioplayer);
 		await player.addListnerOnPlayer();
 		await player.sendAlertInchat("Трек добавлен!", youtubeUrl);
-
-		return;
 	} catch (error) {
 		console.log(error);
 		return await message.reply("Ошибка при добавлении в очередь!");
@@ -120,35 +114,6 @@ const client = new Client({
 	// partials: ["CHANNEL", "MESSAGE"],
 });
 
-async function handleCommands(
-	player: playerDiscordBot | undefined,
-	message: Message,
-) {
-	if (message.content.startsWith("?debug")) {
-		console.log(mapPlayers);
-		return;
-	}
-	if (message.content.startsWith("?play")) {
-		return await playCommand(eventNewMusic, message);
-	}
-	if (!player) return;
-	// Команда skip
-	if (message.content.startsWith("?skip")) {
-		return await skip(player, message);
-	}
-	// Команда паузы
-	if (message.content.startsWith("?pause")) {
-		return await pause(player, message);
-	}
-	// Команда продолжения после паузы
-	if (message.content.startsWith("?resume")) {
-		return await resume(player, message);
-	}
-	// Команда выключения
-	if (message.content.startsWith("?stop")) {
-		return await stop(player, mapPlayers);
-	}
-}
 // @ts-ignore
 client.on("messageCreate", async (message: Message) => {
 	if (message.author.bot || !message.guild?.id) return;
@@ -167,7 +132,7 @@ client.on("messageCreate", async (message: Message) => {
 		return await message.channel.send("Бот не играет. Иди нахуй");
 	}
 
-	await handleCommands(player, message);
+	await handleCommands(player, message, mapPlayers, eventNewMusic);
 });
 
 client.on(
