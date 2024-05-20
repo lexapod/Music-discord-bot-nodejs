@@ -8,7 +8,7 @@ import { skipCommand } from "../commands/skip";
 import { pauseCommand } from "../commands/pause";
 import { resumeCommand } from "../commands/resume";
 import { stopCommand } from "../commands/stop";
-
+import { botReplys } from "../consts/bot-replys";
 
 export interface CommandExecuteArgs {
   player?: playerDiscordBot;
@@ -29,7 +29,6 @@ const commandRegistry: { [key: string]: Command } = {
   pause: pauseCommand,
   resume: resumeCommand,
   stop: stopCommand,
-
 };
 
 export async function handleCommands(
@@ -38,14 +37,16 @@ export async function handleCommands(
   mapPlayers: mapPlayers,
   client: Client
 ) {
- 
-  if (!message.content.startsWith(prefix)) return;
-
-  const commandName = message.content.startsWith("?play")
-    ? "play"
-    : message.content.slice(prefix.length).trim();
+  let commandName = message.content.slice(prefix.length).trim();
+  if (message.content.startsWith("?play")) {
+    commandName = "play";
+  }
 
   const command = commandRegistry[commandName];
+  
+  if (!command) {
+    return await message.channel.send(botReplys.unknownCommand);
+  }
 
   const commandArgs: CommandExecuteArgs = {
     player,
@@ -54,11 +55,6 @@ export async function handleCommands(
     client,
   };
 
-  try {
-    await command.execute(commandArgs);
-  } catch (error) {
-    console.log(`${commandName}:, ${error}`);
-  }
 
-
+  await command.execute(commandArgs);
 }
