@@ -1,4 +1,4 @@
-# audiobot
+# Discord Audio bot
 Discord Audio Bot
 allows listen music from Youtube
 1. git clone https://github.com/Lexanode/aaa/tree/main & npm ci 
