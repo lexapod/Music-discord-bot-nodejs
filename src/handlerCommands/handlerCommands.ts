@@ -1,4 +1,4 @@
-import type { Message } from "discord.js";
+import type { Client, Message } from "discord.js";
 import type { playerDiscordBot } from "../playerDiscordBot";
 import type { EventEmitter } from "node:events";
 
@@ -14,14 +14,14 @@ export async function handleCommands(
 	player: playerDiscordBot | undefined,
 	message: Message,
 	mapPlayers: mapPlayers,
-	eventNewMusic: EventEmitter,
+	client: Client,
 ) {
 	if (message.content.startsWith("?debug")) {
 		console.log(mapPlayers);
 		return;
 	}
 	if (message.content.startsWith("?play")) {
-		return await play(eventNewMusic, message);
+		return await play(message,mapPlayers,client);
 	}
 	if (!player) return;
 	// Команда skip

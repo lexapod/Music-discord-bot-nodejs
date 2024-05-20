@@ -18,8 +18,8 @@ if (!(COOKIE && TOKEN)) {
 	throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
 }
 
-import EventEmitter from "node:events";
-import { playerDiscordBot } from "./playerDiscordBot";
+
+import type { playerDiscordBot } from "./playerDiscordBot";
 
 import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
 import { handleCommands } from "./handlerCommands/handlerCommands";
@@ -37,49 +37,6 @@ const commandList = [
 
 type mapPlayers = Map<string, playerDiscordBot>;
 const mapPlayers = new Map<string, playerDiscordBot>();
-
-const eventNewMusic = new EventEmitter();
-
-eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
-	if (!message.member?.voice?.channel?.id || !message.guild?.id) {
-		return;
-	}
-
-	try {
-		const playerInMap = mapPlayers.get(message.guild.id);
-
-		if (playerInMap) {
-			return await playerInMap.addMusicInQueue(youtubeUrl);
-		}
-		const connection: VoiceConnection = joinVoiceChannel({
-			channelId: message.member?.voice.channel.id,
-			guildId: message.guild.id,
-			adapterCreator: message.guild.voiceAdapterCreator,
-		});
-		const playerAudio: AudioPlayer = createAudioPlayer({
-			behaviors: { noSubscriber: NoSubscriberBehavior.Play },
-		});
-
-		const player = new playerDiscordBot(
-			message.guild.id,
-			message.member.voice.channel.id,
-			message.channel.id,
-			playerAudio,
-			connection,
-			[],
-			client,
-		);
-
-		mapPlayers.set(message.guild.id, player);
-		await player.play(youtubeUrl);
-		player.VoiceConnection.subscribe(player.Audioplayer);
-		await player.addListnerOnPlayer();
-		await player.sendAlertInchat(botReplys.trackAddedSuccess, youtubeUrl);
-	} catch (error) {
-		console.log(error);
-		return await message.reply(botReplys. errorAddInQueue);
-	}
-});
 
 play.setToken({
 	youtube: {
@@ -124,7 +81,8 @@ client.on("messageCreate", async (message: Message) => {
 
 	if (commandList.includes(message.content) || !isPlay) {
 		const voiceChannel = message.member?.voice?.channel;
-		if (!voiceChannel) return await message.channel.send(botReplys.userNotInVoice);
+		if (!voiceChannel)
+			return await message.channel.send(botReplys.userNotInVoice);
 	}
 
 	const player = mapPlayers.get(message.guild.id);
@@ -133,7 +91,7 @@ client.on("messageCreate", async (message: Message) => {
 		return await message.channel.send(botReplys.playerNotPlaying);
 	}
 
-	await handleCommands(player, message, mapPlayers, eventNewMusic);
+	await handleCommands(player, message, mapPlayers, client);
 });
 
 client.on(
