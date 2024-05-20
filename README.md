@@ -9,4 +9,12 @@ allows listen music from Youtube
 6. Add bot on your server  and enjoy
 
 
-Docker support
+Docker usage recommend
+
+on mac os  intel if u get error need do
+
+npm uninstall sodium
+npm uninstall libsodium-wrappers
+
+npm install @discordjs/voice libsodium-wrappers
+
