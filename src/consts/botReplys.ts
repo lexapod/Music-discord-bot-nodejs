@@ -3,7 +3,9 @@ export const botReplys = {
 	wrongUrlProvided: "Попробуй подумать",
 	musicResume: "Продолжаем бал",
 	musicSteelPlaying: "Музыка и так играет",
+	musicSteelPaused: "Музыка и так на паузе",
 	nothingToSkip: "Нехуй скипать",
+	icantSkipTrack:"Я немогу скипнуть трек пока он не играет.",
 	skippedTrack: (count: number) => {
 		return `Скипнул хуйню\n${count} Осталось треков`;
 	},
