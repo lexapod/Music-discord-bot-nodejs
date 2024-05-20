@@ -10,7 +10,7 @@ export async function checkStatusbot(
 	mapPlayers: mapPlayers,
 ) {
 	if (oldState?.member?.user.bot) {
-		//muted or not muted
+		
 		const player = mapPlayers.get(oldState.guild.id);
 
 		if (!player) return;
