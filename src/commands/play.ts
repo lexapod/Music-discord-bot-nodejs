@@ -1,6 +1,7 @@
 import type { Message } from "discord.js";
 
 import type { EventEmitter } from "node:events";
+import { botReplys } from '../consts/botReplys';
 
 export async function play(
 	eventNewMusic: EventEmitter,
@@ -14,6 +15,6 @@ export async function play(
 		eventNewMusic.emit("newMusic", message, YoutubeURL);
 	} catch (e) {
 		console.log(e);
-		return await message.reply("Попробуй подумать");
+		return await message.reply(botReplys.wrongUrlProvided);
 	}
 }

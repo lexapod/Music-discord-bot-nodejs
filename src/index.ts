@@ -23,6 +23,7 @@ import { playerDiscordBot } from "./playerDiscordBot";
 
 import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
 import { handleCommands } from "./handlerCommands/handlerCommands";
+import { botReplys } from "./consts/botReplys";
 
 const commandList = [
 	"?play",
@@ -73,10 +74,10 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 		await player.play(youtubeUrl);
 		player.VoiceConnection.subscribe(player.Audioplayer);
 		await player.addListnerOnPlayer();
-		await player.sendAlertInchat("Трек добавлен!", youtubeUrl);
+		await player.sendAlertInchat(botReplys.trackAddedSuccess, youtubeUrl);
 	} catch (error) {
 		console.log(error);
-		return await message.reply("Ошибка при добавлении в очередь!");
+		return await message.reply(botReplys. errorAddInQueue);
 	}
 });
 
@@ -123,13 +124,13 @@ client.on("messageCreate", async (message: Message) => {
 
 	if (commandList.includes(message.content) || !isPlay) {
 		const voiceChannel = message.member?.voice?.channel;
-		if (!voiceChannel) return await message.channel.send("В войс зайди пидр");
+		if (!voiceChannel) return await message.channel.send(botReplys.userNotInVoice);
 	}
 
 	const player = mapPlayers.get(message.guild.id);
 
 	if (!player && !isPlay) {
-		return await message.channel.send("Бот не играет. Иди нахуй");
+		return await message.channel.send(botReplys.playerNotPlaying);
 	}
 
 	await handleCommands(player, message, mapPlayers, eventNewMusic);

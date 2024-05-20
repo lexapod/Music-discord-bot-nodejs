@@ -12,6 +12,7 @@ import play from "play-dl";
 import ytdl from "ytdl-core-discord";
 
 import config from "../config.json";
+import { botReplys } from "./consts/botReplys";
 
 const COOKIE: string = config.COOCKIEFORYOUTUBE;
 
@@ -101,7 +102,7 @@ export class playerDiscordBot {
 	}
 	async addMusicInQueue(url: string) {
 		this.queue.push({ url });
-		await this.sendAlertInchat("Добавлено в очередь!", url);
+		await this.sendAlertInchat(botReplys.trackAddedSuccess, url);
 	}
 	async downloadResoreses(youtubeUrl: string): Promise<AudioResource<unknown>> {
 		const stream = await play.stream(youtubeUrl);
@@ -216,7 +217,7 @@ export class playerDiscordBot {
 									break;
 								}
 								try {
-									await this.sendAlertInchat("Начинаю проигрывать!", music.url);
+									await this.sendAlertInchat(botReplys.startPlaying, music.url);
 									await this.play(music.url);
 									return;
 								} catch (error) {
@@ -225,12 +226,12 @@ export class playerDiscordBot {
 									// console.log(error);
 								}
 							} else {
-								await this.sendSimpleAlert("Треки кончились, пока.");
+								await this.sendSimpleAlert(botReplys.emptyQueue);
 								await this.disconect();
 								return;
 							}
 						}
-						await this.sendSimpleAlert("Треки кончились, пока.");
+						await this.sendSimpleAlert(botReplys.emptyQueue);
 						await this.disconect();
 					}
 				}
