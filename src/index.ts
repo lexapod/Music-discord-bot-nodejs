@@ -45,8 +45,6 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 			behaviors: { noSubscriber: NoSubscriberBehavior.Play },
 		});
 
-		if (!playerAudio) throw new Error("Player not allowed");
-
 		const player = new playerDiscordBot(
 			message.guild.id,
 			message.member.voice.channel.id,
