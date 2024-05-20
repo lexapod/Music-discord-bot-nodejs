@@ -2,12 +2,13 @@ import type { Client, Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
 import type { mapPlayers } from "../index";
 
+import { prefix } from "../consts/prefix";
 import { playCommand } from "../commands/play";
 import { skipCommand } from "../commands/skip";
 import { pauseCommand } from "../commands/pause";
 import { resumeCommand } from "../commands/resume";
 import { stopCommand } from "../commands/stop";
-import { prefix } from "../consts/prefix";
+
 
 export interface CommandExecuteArgs {
   player?: playerDiscordBot;
@@ -38,7 +39,6 @@ export async function handleCommands(
   client: Client
 ) {
  
-
   if (!message.content.startsWith(prefix)) return;
 
   const commandName = message.content.startsWith("?play")
