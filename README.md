@@ -13,8 +13,7 @@ Docker usage recommend
 
 on mac os  intel if u get error need do
 
-npm uninstall sodium
-npm uninstall libsodium-wrappers
+npm uninstall sodium & npm uninstall libsodium-wrappers
 
 npm install @discordjs/voice libsodium-wrappers
 
