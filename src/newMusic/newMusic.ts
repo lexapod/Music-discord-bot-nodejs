@@ -1,11 +1,21 @@
 import type { Client, Message } from "discord.js";
-import{ playerDiscordBot } from "../playerDiscordBot";
-import { type AudioPlayer, createAudioPlayer, joinVoiceChannel, NoSubscriberBehavior, type VoiceConnection } from "@discordjs/voice";
+import { playerDiscordBot } from "../playerDiscordBot";
+import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
+import {
+	createAudioPlayer,
+	joinVoiceChannel,
+	NoSubscriberBehavior,
+} from "@discordjs/voice";
 import { botReplys } from "../consts/botReplys";
 
 type mapPlayers = Map<string, playerDiscordBot>;
 
-export async function newMusic(message: Message, youtubeUrl: string,	mapPlayers: mapPlayers,client:Client):Promise<void>{
+export async function newMusic(
+	message: Message,
+	youtubeUrl: string,
+	mapPlayers: mapPlayers,
+	client: Client,
+): Promise<void> {
 	if (!message.member?.voice?.channel?.id || !message.guild?.id) {
 		return;
 	}
@@ -42,6 +52,6 @@ export async function newMusic(message: Message, youtubeUrl: string,	mapPlayers:
 		await player.sendAlertInchat(botReplys.trackAddedSuccess, youtubeUrl);
 	} catch (error) {
 		console.log(error);
-		 await message.reply(botReplys. errorAddInQueue);
+		await message.reply(botReplys.errorAddInQueue);
 	}
 }

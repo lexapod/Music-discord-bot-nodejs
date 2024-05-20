@@ -17,19 +17,11 @@ import type { playerDiscordBot } from "./playerDiscordBot";
 
 import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
 import { handleCommands } from "./handlerCommands/handlerCommands";
+
 import { botReplys } from "./consts/botReplys";
+import { commandList } from "./consts/commandList";
 
-const commandList = [
-	"?play",
-	"?skip",
-	"?skip",
-	"?debug",
-	"?pause",
-	"?resume",
-	"?stop",
-];
-
-type mapPlayers = Map<string, playerDiscordBot>;
+export type mapPlayers = Map<string, playerDiscordBot>;
 const mapPlayers = new Map<string, playerDiscordBot>();
 
 play.setToken({
