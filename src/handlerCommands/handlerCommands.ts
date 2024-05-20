@@ -2,7 +2,7 @@ import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../playerDiscordBot";
 import type { EventEmitter } from "node:events";
 
-import { playCommand } from "../commands/play";
+import { play} from "../commands/play";
 import { skip } from "../commands/skip";
 import { pause } from "../commands/pause";
 import { resume } from "../commands/resume";
@@ -21,7 +21,7 @@ export async function handleCommands(
 		return;
 	}
 	if (message.content.startsWith("?play")) {
-		return await playCommand(eventNewMusic, message);
+		return await play(eventNewMusic, message);
 	}
 	if (!player) return;
 	// Команда skip

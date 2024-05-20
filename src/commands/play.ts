@@ -2,7 +2,7 @@ import type { Message } from "discord.js";
 
 import type { EventEmitter } from "node:events";
 
-export async function playCommand(
+export async function play(
 	eventNewMusic: EventEmitter,
 	message: Message,
 ) {
