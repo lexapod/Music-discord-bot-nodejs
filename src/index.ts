@@ -71,9 +71,9 @@ client.on("messageCreate", async (message: Message) => {
 
   const player = mapPlayers.get(message.guild.id);
 
-	await handleCommands(player, message, mapPlayers, client).catch(console.error)
-
-
+  await handleCommands(player, message, mapPlayers, client).catch(
+    console.error
+  );
 });
 
 client.on(
