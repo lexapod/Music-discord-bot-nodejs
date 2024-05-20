@@ -22,7 +22,7 @@ import EventEmitter from "node:events";
 import { playerDiscordBot } from "./playerDiscordBot";
 
 import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
-import { handleCommands } from "./commands/handlerCommands/handlerCommands";
+import { handleCommands } from "./handlerCommands/handlerCommands";
 
 const commandList = [
 	"?play",
@@ -35,8 +35,8 @@ const commandList = [
 ];
 
 type mapPlayers = Map<string, playerDiscordBot>;
-
 const mapPlayers = new Map<string, playerDiscordBot>();
+
 const eventNewMusic = new EventEmitter();
 
 eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {

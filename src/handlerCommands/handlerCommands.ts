@@ -1,12 +1,12 @@
 import type { Message } from "discord.js";
-import type { playerDiscordBot } from "../../playerDiscordBot";
+import type { playerDiscordBot } from "../playerDiscordBot";
 import type { EventEmitter } from "node:events";
 
-import { playCommand } from "../play";
-import { skip } from "../skip";
-import { pause } from "../pause";
-import { resume } from "../resume";
-import { stop } from "../stop";
+import { playCommand } from "../commands/play";
+import { skip } from "../commands/skip";
+import { pause } from "../commands/pause";
+import { resume } from "../commands/resume";
+import { stop } from "../commands/stop";
 
 type mapPlayers = Map<string, playerDiscordBot>;
 
