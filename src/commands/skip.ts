@@ -1,5 +1,5 @@
 import type { Message } from "discord.js";
-import type { playerDiscordBot } from "../playerDiscordBot";
+import type { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
 
 import { botReplys } from "../consts/botReplys";
 

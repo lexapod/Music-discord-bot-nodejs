@@ -1,5 +1,5 @@
 import type { Client, Message } from "discord.js";
-import type { playerDiscordBot } from "../playerDiscordBot";
+import type { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
 import type { mapPlayers } from "../index";
 
 import { play } from "../commands/play";

@@ -1,5 +1,5 @@
 import type { VoiceState } from "discord.js";
-import type { playerDiscordBot } from "../playerDiscordBot";
+import type { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
 
 export async function checkMute(
 	player: playerDiscordBot,

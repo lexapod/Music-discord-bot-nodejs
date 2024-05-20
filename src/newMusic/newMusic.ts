@@ -8,7 +8,7 @@ import {
 	NoSubscriberBehavior,
 } from "@discordjs/voice";
 
-import { playerDiscordBot } from "../playerDiscordBot";
+import { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
 import { botReplys } from "../consts/botReplys";
 
 export async function newMusic(

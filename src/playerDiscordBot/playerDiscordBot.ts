@@ -11,8 +11,8 @@ import { createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
 import play from "play-dl";
 import ytdl from "ytdl-core-discord";
 
-import config from "../config.json";
-import { botReplys } from "./consts/botReplys";
+import config from "../../config.json";
+import { botReplys } from "../consts/botReplys";
 
 const COOKIE: string = config.COOCKIEFORYOUTUBE;
 
