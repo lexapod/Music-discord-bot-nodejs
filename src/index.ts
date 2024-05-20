@@ -26,16 +26,15 @@ const mapPlayers = new Map<string, playerDiscordBot>();
 const eventNewMusic = new EventEmitter();
 
 eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
-
 	if (!message.member?.voice?.channel?.id || !message.guild?.id) {
 		return;
 	}
 
 	try {
-		if (mapPlayers.has(message.guild.id)) {
-			const player = mapPlayers.get(message.guild.id)
-			if (!player) return;
-			return await player.addMusicInQueue(youtubeUrl);
+		const playerInMap = mapPlayers.get(message.guild.id);
+
+		if (playerInMap) {
+			return await playerInMap.addMusicInQueue(youtubeUrl);
 		}
 		const connection: VoiceConnection = joinVoiceChannel({
 			channelId: message.member?.voice.channel.id,
@@ -57,7 +56,7 @@ eventNewMusic.on("newMusic", async (message: Message, youtubeUrl: string) => {
 			[],
 			client,
 		);
-    
+
 		mapPlayers.set(message.guild.id, player);
 		await player.play(youtubeUrl);
 		player.VoiceConnection.subscribe(player.Audioplayer);
@@ -119,6 +118,10 @@ async function handleCommands(
 	player: playerDiscordBot | undefined,
 	message: Message,
 ) {
+	if (message.content.startsWith("?debug")) {
+		console.log(mapPlayers);
+		return;
+	}
 	if (message.content.startsWith("?play")) {
 		try {
 			const YoutubeURL: string = message.content.split("play ")[1];
@@ -165,10 +168,6 @@ async function handleCommands(
 }
 // @ts-ignore
 client.on("messageCreate", async (message: Message) => {
-	if (message.content.startsWith("?debug")) {
-		console.log(mapPlayers);
-		return;
-	}
 	if (message.author.bot || !message.guild?.id) return;
 	//i think it's happened never but type ts say it's optional
 
