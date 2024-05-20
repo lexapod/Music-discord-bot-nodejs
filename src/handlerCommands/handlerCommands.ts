@@ -1,14 +1,12 @@
 import type { Client, Message } from "discord.js";
 import type { playerDiscordBot } from "../playerDiscordBot";
-import type { EventEmitter } from "node:events";
+import type { mapPlayers } from "../index";
 
-import { play} from "../commands/play";
+import { play } from "../commands/play";
 import { skip } from "../commands/skip";
 import { pause } from "../commands/pause";
 import { resume } from "../commands/resume";
 import { stop } from "../commands/stop";
-
-type mapPlayers = Map<string, playerDiscordBot>;
 
 export async function handleCommands(
 	player: playerDiscordBot | undefined,
@@ -21,7 +19,7 @@ export async function handleCommands(
 		return;
 	}
 	if (message.content.startsWith("?play")) {
-		return await play(message,mapPlayers,client);
+		return await play(message, mapPlayers, client);
 	}
 	if (!player) return;
 	// Команда skip

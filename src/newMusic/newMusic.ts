@@ -1,14 +1,14 @@
 import type { Client, Message } from "discord.js";
-import { playerDiscordBot } from "../playerDiscordBot";
+import type { mapPlayers } from "../index";
 import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
+import { playerDiscordBot } from "../playerDiscordBot";
+
 import {
 	createAudioPlayer,
 	joinVoiceChannel,
 	NoSubscriberBehavior,
 } from "@discordjs/voice";
 import { botReplys } from "../consts/botReplys";
-
-type mapPlayers = Map<string, playerDiscordBot>;
 
 export async function newMusic(
 	message: Message,

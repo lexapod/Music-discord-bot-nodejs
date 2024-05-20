@@ -1,7 +1,7 @@
 
 import type { playerDiscordBot } from "../playerDiscordBot";
 
-type mapPlayers = Map<string, playerDiscordBot>;
+import type { mapPlayers } from "../index";
 
 export async function stop(player: playerDiscordBot, mapPlayers: mapPlayers) {
 	await player.stop();

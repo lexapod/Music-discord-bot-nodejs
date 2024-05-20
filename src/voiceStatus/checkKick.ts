@@ -1,9 +1,10 @@
 import type { VoiceState } from "discord.js";
 import type{ playerDiscordBot } from "../playerDiscordBot";
+import type {mapPlayers} from '../index'
 
 import { botReplys } from "../consts/botReplys";
 
-type mapPlayers = Map<string, playerDiscordBot>;
+
 
 export async function checkKick(
 	player: playerDiscordBot,

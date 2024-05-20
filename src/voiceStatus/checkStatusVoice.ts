@@ -1,8 +1,9 @@
 import type { VoiceState } from "discord.js";
-import type { playerDiscordBot } from "../playerDiscordBot";
+import type {mapPlayers} from '../index'
+
 import { checkKick } from "./checkKick";
 import { checkMute } from "./checkMute";
-type mapPlayers = Map<string, playerDiscordBot>;
+
 
 export async function checkStatusbot(
 	oldState: VoiceState,

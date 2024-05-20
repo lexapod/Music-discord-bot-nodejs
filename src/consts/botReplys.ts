@@ -12,7 +12,7 @@ export const botReplys = {
 	playerNotPlaying: "Бот не играет. Иди нахуй",
 	errorAddInQueue: "Ошибка при добавлении в очередь!",
 	trackAddedSuccess: "Трек добавлен в очередь!",
-  startPlaying:"Начинаю проигрывать!",
-  emptyQueue :"Треки кончились, пока."
+	startPlaying: "Начинаю проигрывать!",
+	emptyQueue: "Треки кончились, пока.",
 };
   
