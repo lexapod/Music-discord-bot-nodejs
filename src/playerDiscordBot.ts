@@ -163,12 +163,12 @@ export class playerDiscordBot {
 				this.chatID,
 			) as Discord.TextChannel;
 
-			const embeds1 = await createYoutubeEmbed(
+			const embedYoutube = await createYoutubeEmbed(
 				youtubeUrl,
 				text,
 				this.queue.length,
 			);
-			await channel.send({ embeds: [embeds1] });
+			await channel.send({ embeds: [embedYoutube] });
 		} catch (error) {
 			console.log(error);
 		}
