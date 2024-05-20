@@ -3,7 +3,7 @@ import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot"
 
 import { AudioPlayerStatus } from "@discordjs/voice";
 
-import { botReplys } from "../consts/botReplys";
+import { botReplys } from "../consts/bot-replys";
 
 export async function resume(player: playerDiscordBot, message: Message) {
   if (player.Audioplayer.state.status === AudioPlayerStatus.Playing) {

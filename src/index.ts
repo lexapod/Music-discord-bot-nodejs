@@ -16,8 +16,8 @@ if (!(COOKIE && TOKEN)) {
 import { checkStatusbot } from "./voice-status/check-status-voice";
 import { handleCommands } from "./handler-commands/handler-commands";
 
-import { botReplys } from "./consts/botReplys";
-import { commandList } from "./consts/commandList";
+import { botReplys } from "./consts/bot-replys";
+import { commandList } from "./consts/command-list";
 
 export type mapPlayers = Map<string, playerDiscordBot>;
 const mapPlayers = new Map<string, playerDiscordBot>();

@@ -1,7 +1,7 @@
 import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
 
-import { botReplys } from "../consts/botReplys";
+import { botReplys } from "../consts/bot-replys";
 import { AudioPlayerStatus } from "@discordjs/voice";
 
 export async function skip(player: playerDiscordBot, message: Message) {

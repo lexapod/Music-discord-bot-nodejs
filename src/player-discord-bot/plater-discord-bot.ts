@@ -12,7 +12,7 @@ import play from "play-dl";
 import ytdl from "ytdl-core-discord";
 
 import config from "../../config.json";
-import { botReplys } from "../consts/botReplys";
+import { botReplys } from "../consts/bot-replys";
 
 const COOKIE: string = config.COOCKIEFORYOUTUBE;
 

@@ -1,7 +1,7 @@
 import type { Client, Message } from "discord.js";
 import type { mapPlayers } from "../index";
 
-import { botReplys } from "../consts/botReplys";
+import { botReplys } from "../consts/bot-replys";
 import { newMusic } from "../new-music/new-music";
 
 export async function play(
