@@ -10,7 +10,6 @@ export async function pause(player: playerDiscordBot, message: Message) {
 	}
 
 	if (player.Audioplayer.state.status === AudioPlayerStatus.Playing) {
-		console.log(player.Audioplayer.state);
 		await player.pause();
 		return await message.channel.send(botReplys.trackOnPause);
 	}
