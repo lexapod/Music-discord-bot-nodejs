@@ -1,8 +1,8 @@
 import type { VoiceState } from "discord.js";
 import type { mapPlayers } from "../index";
 
-import { checkKick } from "./checkKick";
-import { checkMute } from "./checkMute";
+import { checkKick } from "./check-kick";
+import { checkMute } from "./check-mute";
 
 export async function checkStatusbot(
   oldState: VoiceState,

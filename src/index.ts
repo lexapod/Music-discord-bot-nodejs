@@ -1,5 +1,5 @@
 import type { Message, VoiceState } from "discord.js";
-import type { playerDiscordBot } from "./playerDiscordBot/playerDiscordBot";
+import type { playerDiscordBot } from "./player-discord-bot/plater-discord-bot";
 
 import { GatewayIntentBits, Client } from "discord.js";
 import play from "play-dl";
@@ -13,8 +13,8 @@ if (!(COOKIE && TOKEN)) {
   throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
 }
 
-import { checkStatusbot } from "./voiceStatus/checkStatusVoice";
-import { handleCommands } from "./handlerCommands/handlerCommands";
+import { checkStatusbot } from "./voice-status/check-status-voice";
+import { handleCommands } from "./handler-commands/handler-commands";
 
 import { botReplys } from "./consts/botReplys";
 import { commandList } from "./consts/commandList";

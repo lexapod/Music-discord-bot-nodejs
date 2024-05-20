@@ -1,5 +1,5 @@
 import type { Message } from "discord.js";
-import type { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
+import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
 
 import { botReplys } from "../consts/botReplys";
 import { AudioPlayerStatus } from "@discordjs/voice";

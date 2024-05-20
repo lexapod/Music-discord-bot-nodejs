@@ -1,4 +1,4 @@
-import type { playerDiscordBot } from "../playerDiscordBot/playerDiscordBot";
+import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
 import type { mapPlayers } from "../index";
 
 export async function stop(player: playerDiscordBot, mapPlayers: mapPlayers) {
