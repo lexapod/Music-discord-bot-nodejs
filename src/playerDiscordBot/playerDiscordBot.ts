@@ -106,10 +106,9 @@ export class playerDiscordBot {
 	}
 	async downloadResoreses(youtubeUrl: string): Promise<AudioResource<unknown>> {
 		const stream = await play.stream(youtubeUrl);
-		const resource: AudioResource = createAudioResource(stream.stream, {
+		return createAudioResource(stream.stream, {
 			inputType: stream.type,
 		});
-		return resource;
 	}
 	async play(youtubeUrl: string) {
 		let resource: AudioResource | undefined;
@@ -147,11 +146,8 @@ export class playerDiscordBot {
 	async disconect() {
 		try {
 			this.queue = [];
-			this.Audioplayer.removeAllListeners();
+			this.Audioplayer.off;
 			this.Audioplayer?.stop();
-		} catch (error) {}
-		try {
-			this.VoiceConnection?.destroy();
 		} catch (error) {}
 
 		try {
