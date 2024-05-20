@@ -1,12 +1,7 @@
-import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
 import type { Message, VoiceState } from "discord.js";
 
 import { GatewayIntentBits, Client } from "discord.js";
-import {
-	createAudioPlayer,
-	joinVoiceChannel,
-	NoSubscriberBehavior,
-} from "@discordjs/voice";
+
 import play from "play-dl";
 
 import config from "../config.json";
@@ -17,7 +12,6 @@ const TOKEN: string = config.DISCORDBOTTOKEN;
 if (!(COOKIE && TOKEN)) {
 	throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
 }
-
 
 import type { playerDiscordBot } from "./playerDiscordBot";
 
