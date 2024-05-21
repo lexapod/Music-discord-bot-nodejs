@@ -1,6 +1,5 @@
 import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
-
 import type { Command, CommandExecuteArgs } from "../handler-commands/handler-commands";
 
 import { botReplys } from "../consts/bot-replys";
