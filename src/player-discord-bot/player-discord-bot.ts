@@ -94,33 +94,34 @@ export class playerDiscordBot {
       this.VoiceConnection.destroy();
     } catch (error) {}
   }
-  async sendAlertInchat(text: string, youtubeUrl: string) {
+  private async sendInChat(message: string | object) {
     try {
       const channel = this.client.channels.cache.get(
         this.chatID
       ) as Discord.TextChannel;
 
+      await channel.send(message);
+    } catch (error) {
+      await this.sendSimpleAlert(botReplys.errorAddInQueue);
+      console.log(error);
+    }
+  }
+  async sendAlertInchat(text: string, youtubeUrl: string) {
+    try {
       const embedYoutube = await createYoutubeEmbed(
         youtubeUrl,
         text,
         this.queue.length
       );
-      await channel.send({ embeds: [embedYoutube] });
+      await this.sendInChat({ embeds: [embedYoutube] });
+
     } catch (error) {
       await this.sendSimpleAlert(botReplys.errorAddInQueue);
       console.log(error);
     }
   }
   async sendSimpleAlert(text: string) {
-    try {
-      const channel = this.client.channels.cache.get(
-        this.chatID
-      ) as Discord.TextChannel;
-
-      await channel.send(text);
-    } catch (error) {
-      console.log(error);
-    }
+    await this.sendInChat(text);
   }
   playerSwitchStatus() {
     try {
