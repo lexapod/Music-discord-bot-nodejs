@@ -1,5 +1,5 @@
 import type { Message, VoiceState } from "discord.js";
-import type { playerDiscordBot } from "./player-discord-bot/plater-discord-bot";
+import type { playerDiscordBot } from "./player-discord-bot/player-discord-bot";
 
 import { GatewayIntentBits, Client } from "discord.js";
 import play from "play-dl";

@@ -1,5 +1,5 @@
 import type { Client, Message } from "discord.js";
-import type { playerDiscordBot } from "../player-discord-bot/plater-discord-bot";
+import type { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
 import type { mapPlayers } from "../index";
 
 import { prefix } from "../consts/prefix";

@@ -71,12 +71,8 @@ export class playerDiscordBot {
     }
   }
   async stop() {
-    try {
-      this.queue = [];
-      this.Audioplayer.stop();
-    } catch (error) {
-      console.log(error);
-    }
+    this.queue = [];
+    this.Audioplayer.stop();
   }
   async skip() {
     this.Audioplayer.stop();
