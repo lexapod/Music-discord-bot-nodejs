@@ -1,6 +1,7 @@
-import type { Embed } from "discord.js";
-
 import ytdl from "ytdl-core-discord";
+import Discord from "discord.js";
+
+import type { Embed } from "discord.js";
 
 import config from "../../config.json";
 
