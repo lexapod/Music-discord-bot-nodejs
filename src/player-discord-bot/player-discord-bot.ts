@@ -114,7 +114,13 @@ export class playerDiscordBot {
     }
   }
   async sendSimpleAlert(text: string) {
-    await this.sendInChat(text);
+    try {
+      await this.sendInChat(text);
+    } catch (error) {
+      //not sure
+      await this.sendSimpleAlert(botReplys.errorAddInQueue);
+      console.log(error);
+    }
   }
   playerSwitchStatus() {
     try {
