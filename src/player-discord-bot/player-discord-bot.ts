@@ -95,16 +95,10 @@ export class playerDiscordBot {
     } catch (error) {}
   }
   private async sendInChat(message: string | { embeds: Discord.Embed[] }) {
-    try {
-      const channel = this.client.channels.cache.get(
-        this.chatID
-      ) as Discord.TextChannel;
-
-      await channel.send(message);
-    } catch (error) {
-      await this.sendSimpleAlert(botReplys.errorAddInQueue);
-      console.log(error);
-    }
+    const channel = this.client.channels.cache.get(
+      this.chatID
+    ) as Discord.TextChannel;
+    await channel.send(message);
   }
   async sendAlertInchat(text: string, youtubeUrl: string) {
     try {
