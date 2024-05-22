@@ -94,7 +94,7 @@ export class playerDiscordBot {
       this.VoiceConnection.destroy();
     } catch (error) {}
   }
-  private async sendInChat(message: string | object) {
+  private async sendInChat(message: string | { embeds: Discord.Embed[] }) {
     try {
       const channel = this.client.channels.cache.get(
         this.chatID
@@ -114,7 +114,6 @@ export class playerDiscordBot {
         this.queue.length
       );
       await this.sendInChat({ embeds: [embedYoutube] });
-
     } catch (error) {
       await this.sendSimpleAlert(botReplys.errorAddInQueue);
       console.log(error);
