@@ -9,11 +9,9 @@ export async function checkStatusbot(
   newState: VoiceState,
   mapPlayers: mapPlayers
 ) {
-  if (oldState?.member?.user.bot) {
-    const player = mapPlayers.get(oldState.guild.id);
+  const player = mapPlayers.get(oldState.guild.id);
 
-    if (!player) return;
-
+  if (oldState?.member?.user.bot && player) {
     await checkMute(player, oldState, newState);
     await checkKick(player, oldState, newState, mapPlayers);
   }

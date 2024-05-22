@@ -79,7 +79,9 @@ client.on("messageCreate", async (message: Message) => {
 client.on(
   "voiceStateUpdate",
   async (oldState: VoiceState, newState: VoiceState) => {
-    await checkStatusbot(oldState, newState, mapPlayers);
+    await checkStatusbot(oldState, newState, mapPlayers).catch((e) =>
+      console.log(e)
+    );
   }
 );
 
