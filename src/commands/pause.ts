@@ -24,5 +24,5 @@ export const pauseCommand: Command = {
     return await message.channel.send(botReplys.trackOnPause);
   }
 
-  return await message.channel.send(botReplys.playerNotPlaying);
+
 }

@@ -5,8 +5,6 @@ import type { Command, CommandExecuteArgs } from "../handler-commands/handler-co
 import { botReplys } from "../consts/bot-replys";
 import { AudioPlayerStatus } from "@discordjs/voice";
 
-
-
 export const skipCommand: Command = {
 	name: "skip",
 	description: "skip",
