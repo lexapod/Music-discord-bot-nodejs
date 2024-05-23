@@ -9,7 +9,7 @@ type youtubeInfo = {
 import EventEmitter from "node:events";
 import { downloadResources } from "../utils/download-resources";
 import { botReplys } from "../consts/bot-replys";
-import type{ mapQueueSmart } from "..";
+import type { mapQueueSmart } from "..";
 
 type queueYoutube = youtubeInfo[];
 
@@ -20,15 +20,19 @@ export class queueSmart {
   isDownloding: boolean;
   cacheSize: number;
   DiscordAlertChannel: DiscordAlertChannel;
-  queueSmartInMap:mapQueueSmart
-  constructor(DiscordAlertChannel: DiscordAlertChannel,queueSmartInMap:mapQueueSmart, cacheSize = 4) {
+  queueSmartInMap: mapQueueSmart;
+  constructor(
+    DiscordAlertChannel: DiscordAlertChannel,
+    queueSmartInMap: mapQueueSmart,
+    cacheSize = 4
+  ) {
     this.queue = [];
     this.queueTemp = [];
     this.downloadEvent = new EventEmitter();
     this.isDownloding = false;
     this.DiscordAlertChannel = DiscordAlertChannel;
     this.cacheSize = cacheSize;
-    this.queueSmartInMap=queueSmartInMap
+    this.queueSmartInMap = queueSmartInMap;
     this.registerDownloadEvent();
   }
   async addMusic(url: string) {
@@ -54,7 +58,7 @@ export class queueSmart {
 
     return music;
   }
-  async registerDownloadEvent() {
+  registerDownloadEvent() {
     this.downloadEvent.on("newMusic", async () => {
       if (this.isDownloding) return;
       this.isDownloding = true;
@@ -92,11 +96,10 @@ export class queueSmart {
       );
     }
   }
-  clearQueue(guilID:string) {
-    this.queueSmartInMap.delete(guilID)
+  clearQueue(guilID: string) {
+    this.queueSmartInMap.delete(guilID);
     this.queueTemp = [];
     this.queue = [];
-   
   }
   getCurrentLength() {
     return this.queue.length + this.queueTemp.length;
