@@ -50,7 +50,7 @@ export class playerDiscordBot {
     this.Audioplayer.play(resource);
   }
   async stop() {
-    this.queue.deleteQueue();
+    this.queue.clearQueue();
     this.Audioplayer.stop();
   }
   async skip() {
@@ -64,7 +64,7 @@ export class playerDiscordBot {
   }
   async disconect() {
     try {
-      this.queue.deleteQueue();
+      this.queue.clearQueue();
       this.Audioplayer.off;
       this.Audioplayer.stop();
     } catch (error) {}

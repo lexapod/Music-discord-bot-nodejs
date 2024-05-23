@@ -11,7 +11,7 @@ export async function checkMute(
     console.log("Bot has been unmuted.");
     await player.unpause();
   } else if (!oldState.serverMute && newState.serverMute) {
-    await player.pause();
     console.log("Bot has been muted.");
+    await player.pause();
   }
 }

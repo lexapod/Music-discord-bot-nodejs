@@ -88,7 +88,7 @@ export class queueSmart {
     }
     return music;
   }
-  deleteQueue() {
+  clearQueue() {
     this.queueTemp = [];
     this.queue = [];
   }
