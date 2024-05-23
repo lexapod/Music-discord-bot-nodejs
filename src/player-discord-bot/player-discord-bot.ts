@@ -4,7 +4,6 @@ import type {
   VoiceConnection,
   VoiceConnectionState,
 } from "@discordjs/voice";
-import type { Client } from "discord.js";
 import type { queueSmart } from "../queue-smart/queue-smart";
 import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
 
@@ -18,7 +17,7 @@ export class playerDiscordBot {
   Audioplayer: AudioPlayer;
   VoiceConnection: VoiceConnection;
   queue: queueSmart;
-  client: Client;
+
   DiscordAlertChannel: DiscordAlertChannel;
   constructor(
     guildID: string,
@@ -27,7 +26,7 @@ export class playerDiscordBot {
     Audioplayer: AudioPlayer,
     VoiceConnection: VoiceConnection,
     queue: queueSmart,
-    client: Client,
+
     DiscordAlertChannel: DiscordAlertChannel
   ) {
     this.guildID = guildID;
@@ -36,7 +35,7 @@ export class playerDiscordBot {
     this.Audioplayer = Audioplayer;
     this.VoiceConnection = VoiceConnection;
     this.queue = queue;
-    this.client = client;
+
     this.DiscordAlertChannel = DiscordAlertChannel;
   }
   async init() {

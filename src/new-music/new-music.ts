@@ -44,7 +44,6 @@ export async function newMusic(
     playerAudio,
     connection,
     queue,
-    client,
     discordAlert
   );
 
