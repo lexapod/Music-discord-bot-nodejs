@@ -1,13 +1,7 @@
 import type { Client, Message } from "discord.js";
 import type { mapPlayers, mapQueueSmart } from "../index";
-import type { AudioPlayer, VoiceConnection } from "@discordjs/voice";
 import type Discord from "discord.js";
 
-import {
-  createAudioPlayer,
-  joinVoiceChannel,
-  NoSubscriberBehavior,
-} from "@discordjs/voice";
 import { downloadResources } from "../utils/download-resources";
 import { DiscordAlertChannel } from "../discord-alert/discord-alert";
 import { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
