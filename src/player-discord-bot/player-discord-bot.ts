@@ -63,8 +63,8 @@ export class playerDiscordBot {
     this.Audioplayer.unpause();
   }
   async disconect() {
+    this.queue.clearQueue();
     try {
-      this.queue.clearQueue();
       this.Audioplayer.off;
       this.Audioplayer.stop();
     } catch (error) {}
