@@ -1,20 +1,23 @@
 import type { Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
-import type { Command, CommandExecuteArgs } from "../handler-commands/handler-commands";
+import type {
+  Command,
+  CommandExecuteArgs,
+} from "../handler-commands/handler-commands";
 
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { botReplys } from "../consts/bot-replys";
 
 export const pauseCommand: Command = {
-	name: "pause",
-	description: "pause",
-	execute: async ({ player, message }: CommandExecuteArgs) => {
-		if (!player ) return
-	  await pause(player, message);
-	},
-  };
-  
-  async function pause(player: playerDiscordBot, message: Message) {
+  name: "pause",
+  description: "pause",
+  execute: async ({ player, message }: CommandExecuteArgs) => {
+    if (!player) return;
+    await pause(player, message);
+  },
+};
+
+async function pause(player: playerDiscordBot, message: Message) {
   if (player.Audioplayer.state.status === AudioPlayerStatus.Paused) {
     return await message.channel.send(botReplys.musicSteelPaused);
   }
@@ -23,6 +26,4 @@ export const pauseCommand: Command = {
     await player.pause();
     return await message.channel.send(botReplys.trackOnPause);
   }
-
-
 }

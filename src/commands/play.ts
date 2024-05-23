@@ -1,5 +1,5 @@
 import type { Client, Message } from "discord.js";
-import type { mapPlayers } from "../index";
+import type { mapPlayers, mapQueueSmart } from "../index";
 import type {
   Command,
   CommandExecuteArgs,
@@ -11,16 +11,26 @@ import { newMusic } from "../new-music/new-music";
 export const playCommand: Command = {
   name: "play",
   description: "play",
-  execute: async ({ message, mapPlayers, client }: CommandExecuteArgs) => {
-    await play(message, mapPlayers, client);
+  execute: async ({
+    message,
+    mapPlayers,
+    client,
+    mapQueueSmart,
+  }: CommandExecuteArgs) => {
+    await play(message, mapPlayers, client, mapQueueSmart);
   },
 };
 
-async function play(message: Message, mapPlayers: mapPlayers, client: Client) {
+async function play(
+  message: Message,
+  mapPlayers: mapPlayers,
+  client: Client,
+  mapQueueSmart: mapQueueSmart
+) {
   const YoutubeURL: string = message.content.split("play ")[1];
   if (!YoutubeURL) {
     return await message.reply(botReplys.wrongUrlProvided);
   }
 
-  await newMusic(message, YoutubeURL, mapPlayers, client);
+  await newMusic(message, YoutubeURL, mapPlayers, client, mapQueueSmart);
 }

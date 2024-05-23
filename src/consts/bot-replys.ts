@@ -16,5 +16,5 @@ export const botReplys = {
   trackAddedSuccess: "Трек добавлен в очередь!",
   startPlaying: "Начинаю проигрывать!",
   emptyQueue: "Треки кончились, пока.",
-  unknownCommand:"Я не понял чо ты хочешь."
+  unknownCommand: "Я не понял чо ты хочешь.",
 };

@@ -1,5 +1,6 @@
 import type { Message, VoiceState } from "discord.js";
 import type { playerDiscordBot } from "./player-discord-bot/player-discord-bot";
+import type { queueSmart } from "./queue-smart/queue-smart";
 
 import { GatewayIntentBits, Client } from "discord.js";
 import play from "play-dl";
@@ -21,6 +22,9 @@ import { botReplys } from "./consts/bot-replys";
 
 export type mapPlayers = Map<string, playerDiscordBot>;
 const mapPlayers = new Map<string, playerDiscordBot>();
+
+export type mapQueueSmart = Map<string, queueSmart>;
+const mapQueueSmart = new Map<string, queueSmart>();
 
 play.setToken({
   youtube: {
@@ -71,9 +75,13 @@ client.on("messageCreate", async (message: Message) => {
 
   const player = mapPlayers.get(message.guild.id);
 
-  await handleCommands(player, message, mapPlayers, client).catch((e) =>
-    console.log(e)
-  );
+  await handleCommands(
+    player,
+    message,
+    mapPlayers,
+    client,
+    mapQueueSmart
+  ).catch((e) => console.log(e));
 });
 
 client.on(

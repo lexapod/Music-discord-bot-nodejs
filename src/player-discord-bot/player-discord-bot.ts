@@ -5,19 +5,11 @@ import type {
   VoiceConnectionState,
 } from "@discordjs/voice";
 import type { Client } from "discord.js";
-import type Discord from "discord.js";
+import type { queueSmart } from "../queue-smart/queue-smart";
+import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
 
-import { createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
-import play from "play-dl";
-
-import { createYoutubeEmbed } from "../create-youtube-embed/create-youtube-embed";
+import { AudioPlayerStatus } from "@discordjs/voice";
 import { botReplys } from "../consts/bot-replys";
-
-type youtubeInfo = {
-  url: string;
-};
-
-type queueYoutube = youtubeInfo[];
 
 export class playerDiscordBot {
   guildID: string;
@@ -25,16 +17,18 @@ export class playerDiscordBot {
   chatID: string;
   Audioplayer: AudioPlayer;
   VoiceConnection: VoiceConnection;
-  queue: queueYoutube;
+  queue: queueSmart;
   client: Client;
+  DiscordAlertChannel: DiscordAlertChannel;
   constructor(
     guildID: string,
     voiceID: string,
     chatID: string,
     Audioplayer: AudioPlayer,
     VoiceConnection: VoiceConnection,
-    queue: queueYoutube,
-    client: Client
+    queue: queueSmart,
+    client: Client,
+    DiscordAlertChannel: DiscordAlertChannel
   ) {
     this.guildID = guildID;
     this.voiceID = voiceID;
@@ -43,35 +37,20 @@ export class playerDiscordBot {
     this.VoiceConnection = VoiceConnection;
     this.queue = queue;
     this.client = client;
+    this.DiscordAlertChannel = DiscordAlertChannel;
+  }
+  async init() {
+    this.VoiceConnection.subscribe(this.Audioplayer);
+    await this.addListnerOnPlayer();
   }
   async addMusicInQueue(url: string) {
-    this.queue.push({ url });
-    await this.sendAlertInchat(botReplys.trackAddedSuccess, url);
+    await this.queue.addMusic(url);
   }
-  async downloadResoreses(youtubeUrl: string): Promise<AudioResource<unknown>> {
-    const stream = await play.stream(youtubeUrl);
-    return createAudioResource(stream.stream, {
-      inputType: stream.type,
-    });
-  }
-  async play(youtubeUrl: string) {
-    let resource: AudioResource | undefined;
-    for (let i = 0; i < 3; i++) {
-      try {
-        resource = await this.downloadResoreses(youtubeUrl);
-        break;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    if (resource) {
-      this.Audioplayer.play(resource);
-    } else {
-      throw new Error("Player can't play ");
-    }
+  async play(resource: AudioResource) {
+    this.Audioplayer.play(resource);
   }
   async stop() {
-    this.queue = [];
+    this.queue.deleteQueue();
     this.Audioplayer.stop();
   }
   async skip() {
@@ -85,7 +64,7 @@ export class playerDiscordBot {
   }
   async disconect() {
     try {
-      this.queue = [];
+      this.queue.deleteQueue();
       this.Audioplayer.off;
       this.Audioplayer.stop();
     } catch (error) {}
@@ -94,50 +73,13 @@ export class playerDiscordBot {
       this.VoiceConnection.destroy();
     } catch (error) {}
   }
-  private async sendInChat(message: string | { embeds: Discord.Embed[] }) {
-    const channel = this.client.channels.cache.get(
-      this.chatID
-    ) as Discord.TextChannel;
-    await channel.send(message);
-  }
-  async sendAlertInchat(text: string, youtubeUrl: string) {
-    try {
-      const embedYoutube = await createYoutubeEmbed(
-        youtubeUrl,
-        text,
-        this.queue.length
-      );
-      await this.sendInChat({ embeds: [embedYoutube] });
-    } catch (error) {
-      await this.sendSimpleAlert(botReplys.errorAddInQueue);
-      console.log(error);
-    }
-  }
-  async sendSimpleAlert(text: string) {
-    try {
-      await this.sendInChat(text);
-    } catch (error) {
-      //not sure
-      await this.sendSimpleAlert(botReplys.errorAddInQueue);
-      console.log(error);
-    }
-  }
-  playerSwitchStatus() {
-    try {
-      this.Audioplayer.stop(true);
-      this.Audioplayer.emit("playing");
-      this.Audioplayer.emit("idle");
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
   async addListnerOnPlayer() {
     this.Audioplayer.on(
       //@ts-ignore
       "stateChange",
       async (
         oldState: VoiceConnectionState,
-
         newState: VoiceConnectionState
       ) => {
         if (newState.status !== oldState.status) {
@@ -146,32 +88,30 @@ export class playerDiscordBot {
             newState.status.toLowerCase() ===
             String(AudioPlayerStatus.Idle).toLowerCase()
           ) {
-            //ojjdanie
-            console.log("Get History");
+            console.log("Try found new music");
             while (true) {
-              if (this.queue.length !== 0) {
-                console.log(`History have ${this.queue.length} tracks`);
-                const music = this.queue.shift();
-                if (!music) {
-                  break;
-                }
-                try {
-                  await this.sendAlertInchat(botReplys.startPlaying, music.url);
-                  await this.play(music.url);
-                  return;
-                } catch (error) {
-                  // continue;
-                  // this.playerSwitchStatus();
-                  // console.log(error);
-                }
-              } else {
-                await this.sendSimpleAlert(botReplys.emptyQueue);
-                await this.disconect();
-                return;
+              const music = await this.queue.getMusic();
+              if (music?.failed) {
+                await this.DiscordAlertChannel.sendSimpleAlert(
+                  `Failed playing this shit\n${music.url}`
+                );
+                continue;
               }
+              if (music?.resource) {
+                await this.DiscordAlertChannel.sendAlertInchat(
+                  botReplys.startPlaying,
+                  music.url,
+                  this.queue.getCurrentLength()
+                );
+                await this.play(music.resource);
+                break;
+              }
+              await this.DiscordAlertChannel.sendSimpleAlert(
+                botReplys.emptyQueue
+              );
+              await this.disconect();
+              break;
             }
-            await this.sendSimpleAlert(botReplys.emptyQueue);
-            await this.disconect();
           }
         }
       }

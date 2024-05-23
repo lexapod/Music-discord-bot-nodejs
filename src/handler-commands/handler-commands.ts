@@ -1,6 +1,7 @@
 import type { Client, Message } from "discord.js";
 import type { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
 import type { mapPlayers } from "../index";
+import type { mapQueueSmart } from "../index";
 
 import { prefix } from "../consts/prefix";
 import { playCommand } from "../commands/play";
@@ -15,6 +16,7 @@ export interface CommandExecuteArgs {
   message: Message;
   mapPlayers: mapPlayers;
   client: Client;
+  mapQueueSmart: mapQueueSmart;
 }
 
 export interface Command {
@@ -35,7 +37,8 @@ export async function handleCommands(
   player: playerDiscordBot | undefined,
   message: Message,
   mapPlayers: mapPlayers,
-  client: Client
+  client: Client,
+  mapQueueSmart: mapQueueSmart
 ) {
   let commandName = message.content.slice(prefix.length).trim();
   if (message.content.startsWith("?play")) {
@@ -43,7 +46,7 @@ export async function handleCommands(
   }
 
   const command = commandRegistry[commandName];
-  
+
   if (!command?.execute) {
     return await message.channel.send(botReplys.unknownCommand);
   }
@@ -53,8 +56,8 @@ export async function handleCommands(
     message,
     mapPlayers,
     client,
+    mapQueueSmart,
   };
-
 
   await command.execute(commandArgs);
 }
