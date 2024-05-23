@@ -12,7 +12,10 @@ export const pauseCommand: Command = {
   name: "pause",
   description: "pause",
   execute: async ({ player, message }: CommandExecuteArgs) => {
-    if (!player) return;
+    if (!player) {
+      await message.channel.send(botReplys.playerNotPlaying);
+      return;
+    }
     await pause(player, message);
   },
 };

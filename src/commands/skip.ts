@@ -12,7 +12,10 @@ export const skipCommand: Command = {
   name: "skip",
   description: "skip",
   execute: async ({ player, message }: CommandExecuteArgs) => {
-    if (!player) return;
+    if (!player) {
+      await message.channel.send(botReplys.playerNotPlaying);
+      return;
+    }
     await skip(player, message);
   },
 };

@@ -13,7 +13,10 @@ export const resumeCommand: Command = {
   name: "resume",
   description: "resume",
   execute: async ({ player, message }: CommandExecuteArgs) => {
-    if (!player) return;
+    if (!player) {
+      await message.channel.send(botReplys.playerNotPlaying);
+      return;
+    }
     await resume(player, message);
   },
 };

@@ -5,11 +5,16 @@ import type {
   CommandExecuteArgs,
 } from "../handler-commands/handler-commands";
 
+import { botReplys } from "../consts/bot-replys";
+
 export const stopCommand: Command = {
   name: "?stop",
   description: "stop",
-  execute: async ({ player, mapPlayers }: CommandExecuteArgs) => {
-    if (!player) return;
+  execute: async ({ player, message, mapPlayers }: CommandExecuteArgs) => {
+    if (!player) {
+      await message.channel.send(botReplys.playerNotPlaying);
+      return;
+    }
     await stop(player, mapPlayers);
   },
 };
