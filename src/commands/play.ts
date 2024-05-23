@@ -14,17 +14,17 @@ export const playCommand: Command = {
   execute: async ({
     message,
     mapPlayers,
-    client,
+
     mapQueueSmart,
   }: CommandExecuteArgs) => {
-    await play(message, mapPlayers, client, mapQueueSmart);
+    await play(message, mapPlayers, mapQueueSmart);
   },
 };
 
 async function play(
   message: Message,
   mapPlayers: mapPlayers,
-  client: Client,
+
   mapQueueSmart: mapQueueSmart
 ) {
   const YoutubeURL: string = message.content.split("play ")[1];
@@ -32,5 +32,5 @@ async function play(
     return await message.reply(botReplys.wrongUrlProvided);
   }
 
-  await newMusic(message, YoutubeURL, mapPlayers, client, mapQueueSmart);
+  await newMusic(message, YoutubeURL, mapPlayers, mapQueueSmart);
 }

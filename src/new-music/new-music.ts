@@ -1,4 +1,4 @@
-import type { Client, Message } from "discord.js";
+import type { Message } from "discord.js";
 import type { mapPlayers, mapQueueSmart } from "../index";
 import type Discord from "discord.js";
 
@@ -13,7 +13,7 @@ export async function newMusic(
   message: Message,
   youtubeUrl: string,
   mapPlayers: mapPlayers,
-  client: Client,
+
   mapQueueSmart: mapQueueSmart
 ): Promise<void> {
   if (!message.member?.voice?.channel?.id || !message.guild?.id) {
