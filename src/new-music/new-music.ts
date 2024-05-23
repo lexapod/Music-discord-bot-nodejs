@@ -13,23 +13,22 @@ export async function newMusic(
   message: Message,
   youtubeUrl: string,
   mapPlayers: mapPlayers,
-
   mapQueueSmart: mapQueueSmart
 ): Promise<void> {
   if (!message.member?.voice?.channel?.id || !message.guild?.id) {
     return;
   }
 
-  const playerInMap = mapPlayers.get(message.guild.id);
+  // const playerInMap = mapPlayers.get(message.guild.id);
   const queueSmartInMap = mapQueueSmart.get(message.guild.id);
-  if (playerInMap && queueSmartInMap) {
+  if (queueSmartInMap) {
     return await queueSmartInMap.addMusic(youtubeUrl);
   }
   const discordAlert = new DiscordAlertChannel(
     message.channel as Discord.TextChannel
   );
 
-  const queue = new queueSmart(discordAlert);
+  const queue = new queueSmart(discordAlert,mapQueueSmart);
   mapQueueSmart.set(message.guild.id, queue);
 
   const { connection, playerAudio } = await createPlayer(

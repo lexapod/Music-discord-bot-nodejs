@@ -46,7 +46,7 @@ export class playerDiscordBot {
     this.Audioplayer.play(resource);
   }
   async stop() {
-    this.queue.clearQueue();
+    this.queue.clearQueue(this.guildID);
     this.Audioplayer.stop();
   }
   async skip() {
@@ -59,7 +59,7 @@ export class playerDiscordBot {
     this.Audioplayer.unpause();
   }
   async disconect() {
-    this.queue.clearQueue();
+    this.queue.clearQueue(this.guildID);
     try {
       this.Audioplayer.off;
       this.Audioplayer.stop();
