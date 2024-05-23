@@ -17,7 +17,6 @@ export class playerDiscordBot {
   Audioplayer: AudioPlayer;
   VoiceConnection: VoiceConnection;
   queue: queueSmart;
-
   DiscordAlertChannel: DiscordAlertChannel;
   constructor(
     guildID: string,
@@ -26,7 +25,6 @@ export class playerDiscordBot {
     Audioplayer: AudioPlayer,
     VoiceConnection: VoiceConnection,
     queue: queueSmart,
-
     DiscordAlertChannel: DiscordAlertChannel
   ) {
     this.guildID = guildID;
@@ -35,7 +33,6 @@ export class playerDiscordBot {
     this.Audioplayer = Audioplayer;
     this.VoiceConnection = VoiceConnection;
     this.queue = queue;
-
     this.DiscordAlertChannel = DiscordAlertChannel;
   }
   async init() {
@@ -72,7 +69,6 @@ export class playerDiscordBot {
       this.VoiceConnection.destroy();
     } catch (error) {}
   }
-
   async addListnerOnPlayer() {
     this.Audioplayer.on(
       //@ts-ignore
