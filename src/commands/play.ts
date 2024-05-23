@@ -14,7 +14,6 @@ export const playCommand: Command = {
   execute: async ({
     message,
     mapPlayers,
-
     mapQueueSmart,
   }: CommandExecuteArgs) => {
     await play(message, mapPlayers, mapQueueSmart);
@@ -24,7 +23,6 @@ export const playCommand: Command = {
 async function play(
   message: Message,
   mapPlayers: mapPlayers,
-
   mapQueueSmart: mapQueueSmart
 ) {
   const YoutubeURL: string = message.content.split("play ")[1];
