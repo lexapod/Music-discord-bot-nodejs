@@ -45,12 +45,12 @@ export async function createYoutubeEmbed(
     .setTitle(text)
     .addFields(
       {
-        name: "Название трека:",
-        value: videoInfo?.videoDetails.title || "Хуета",
+        name: "🔔Название трека:",
+        value: videoInfo?.videoDetails.title || "🤬Хуета",
       },
       { name: "\u200B", value: "\u200B" },
-      { name: "Длина", value: `${seconds}` || "Хуета", inline: true },
-      { name: "Треков в очереди", value: String(length), inline: true }
+      { name: "💎Длина", value: `${seconds}` || "🤬Хуета", inline: true },
+      { name: "🧑🏻‍💻Треков в очереди", value: String(length), inline: true }
     )
     .setURL(videoUrl)
     .setImage(videoThumbnail)
