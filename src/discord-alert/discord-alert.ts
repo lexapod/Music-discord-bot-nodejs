@@ -2,7 +2,7 @@ import type { TextChannel } from "discord.js";
 import type Discord from "discord.js";
 
 import { botReplys } from "../consts/bot-replys";
-import { createYoutubeEmbed } from "../create-youtube-embed/create-youtube-embed";
+import { createYoutubeEmbed } from "../utils/create-youtube-embed";
 
 export class DiscordAlertChannel {
   channel: TextChannel;

@@ -7,7 +7,7 @@ type youtubeInfo = {
 };
 
 import EventEmitter from "node:events";
-import { downloadResources } from "../download-resources/download-resources";
+import { downloadResources } from "../utils/download-resources";
 import { botReplys } from "../consts/bot-replys";
 
 type queueYoutube = youtubeInfo[];
