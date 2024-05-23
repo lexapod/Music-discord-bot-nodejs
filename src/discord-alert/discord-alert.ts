@@ -26,8 +26,6 @@ export class DiscordAlertChannel {
     try {
       await this.sendInChat(text);
     } catch (error) {
-      //not sure
-      await this.sendSimpleAlert(botReplys.errorAddInQueue);
       console.log(error);
     }
   }
