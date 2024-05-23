@@ -28,8 +28,28 @@ export class queueSmart {
     this.cacheSize = cacheSize;
     this.registerDownloadEvent();
   }
-  getCurrentLength() {
-    return this.queue.length + this.queueTemp.length;
+  async addMusic(url: string) {
+    this.queueTemp.push(url);
+    this.downloadEvent.emit("newMusic");
+  }
+  async getMusic(): Promise<youtubeInfo | undefined> {
+    const music = this.queue.shift();
+    //for debug
+    console.log(this.queue);
+
+    this.checkCache();
+    if (music?.url && !music?.resource) {
+      console.log("Didnt get cache make download now");
+      const resource = await downloadResources(music.url);
+      if (resource) {
+        music.resource = resource;
+      } else {
+        //failed download audio need skip this shit
+        music.failed = true;
+      }
+    }
+
+    return music;
   }
   async registerDownloadEvent() {
     this.downloadEvent.on("newMusic", async () => {
@@ -57,10 +77,6 @@ export class queueSmart {
       }
     });
   }
-  async addMusic(url: string) {
-    this.queueTemp.push(url);
-    this.downloadEvent.emit("newMusic");
-  }
   async checkCache() {
     if (
       this.queue.length >= this.cacheSize &&
@@ -73,27 +89,11 @@ export class queueSmart {
       );
     }
   }
-  async getMusic(): Promise<youtubeInfo | undefined> {
-    const music = this.queue.shift();
-    //for debug
-    console.log(this.queue);
-
-    this.checkCache();
-    if (music?.url && !music?.resource) {
-      console.log("Didnt get cache make download now");
-      const resource = await downloadResources(music.url);
-      if (resource) {
-        music.resource = resource;
-      } else {
-        //failed download audio need skip this shit
-        music.failed = true;
-      }
-    }
-
-    return music;
-  }
   clearQueue() {
     this.queueTemp = [];
     this.queue = [];
+  }
+  getCurrentLength() {
+    return this.queue.length + this.queueTemp.length;
   }
 }
