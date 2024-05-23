@@ -81,11 +81,15 @@ export class queueSmart {
     this.checkCache();
     if (music?.url && !music?.resource) {
       console.log("Didnt get cache make download now");
-      music.resource = await downloadResources(music.url);
+      const resource = await downloadResources(music.url);
+      if (resource) {
+        music.resource = resource;
+      } else {
+        //failed download audio need skip this shit
+        music.failed = true;
+      }
     }
-    if (music?.url && !music?.resource) {
-      music.failed = true;
-    }
+
     return music;
   }
   clearQueue() {
