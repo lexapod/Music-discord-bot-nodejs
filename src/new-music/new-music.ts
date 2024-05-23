@@ -13,6 +13,7 @@ import { DiscordAlertChannel } from "../discord-alert/discord-alert";
 import { playerDiscordBot } from "../player-discord-bot/player-discord-bot";
 import { botReplys } from "../consts/bot-replys";
 import { queueSmart } from "../queue-smart/queue-smart";
+import { createPlayer } from "../utils/create-player";
 
 export async function newMusic(
   message: Message,
@@ -37,14 +38,11 @@ export async function newMusic(
   const queue = new queueSmart(discordAlert);
   mapQueueSmart.set(message.guild.id, queue);
 
-  const connection: VoiceConnection = joinVoiceChannel({
-    channelId: message.member?.voice.channel.id,
-    guildId: message.guild.id,
-    adapterCreator: message.guild.voiceAdapterCreator,
-  });
-  const playerAudio: AudioPlayer = createAudioPlayer({
-    behaviors: { noSubscriber: NoSubscriberBehavior.Play },
-  });
+  const { connection, playerAudio } = await createPlayer(
+    message.member?.voice.channel.id,
+    message.guild.id,
+    message.guild.voiceAdapterCreator
+  );
   const player = new playerDiscordBot(
     message.guild.id,
     message.member.voice.channel.id,
