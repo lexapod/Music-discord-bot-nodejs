@@ -6,6 +6,10 @@ import { GatewayIntentBits, Client } from "discord.js";
 import play from "play-dl";
 
 import { prefix } from "./consts/prefix";
+import { checkStatusbot } from "./voice-status/check-status-voice";
+import { handleCommands } from "./handler-commands/handler-commands";
+import { botReplys } from "./consts/bot-replys";
+
 import config from "../config.json";
 
 const COOKIE: string = config.COOCKIEFORYOUTUBE;
@@ -14,11 +18,6 @@ const TOKEN: string = config.DISCORDBOTTOKEN;
 if (!(COOKIE && TOKEN)) {
   throw new TypeError("Config.json. Please insert COOKIE Netscape or Tokens");
 }
-
-import { checkStatusbot } from "./voice-status/check-status-voice";
-import { handleCommands } from "./handler-commands/handler-commands";
-
-import { botReplys } from "./consts/bot-replys";
 
 export type mapPlayers = Map<string, playerDiscordBot>;
 const mapPlayers = new Map<string, playerDiscordBot>();
