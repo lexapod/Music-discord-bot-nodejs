@@ -10,6 +10,7 @@ const COOKIE: string = config.COOCKIEFORYOUTUBE;
 if (!COOKIE) {
   throw new TypeError("Config.json please insert COOKIE ");
 }
+
 export async function createYoutubeEmbed(
   videoUrl: string,
   text: string,
