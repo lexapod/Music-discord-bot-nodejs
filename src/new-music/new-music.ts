@@ -26,7 +26,7 @@ export async function newMusic(
     message.channel as Discord.TextChannel
   );
 
-  const queue = new queueSmart(discordAlert,mapQueueSmart);
+  const queue = new queueSmart(discordAlert, mapQueueSmart);
   mapQueueSmart.set(message.guild.id, queue);
 
   const { connection, playerAudio } = await createPlayer(
