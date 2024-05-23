@@ -20,6 +20,7 @@ export const resumeCommand: Command = {
     await resume(player, message);
   },
 };
+
 async function resume(player: playerDiscordBot, message: Message) {
   if (player.Audioplayer.state.status === AudioPlayerStatus.Playing) {
     return await message.channel.send(botReplys.musicSteelPlaying);

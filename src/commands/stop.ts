@@ -18,6 +18,7 @@ export const stopCommand: Command = {
     await stop(player, mapPlayers);
   },
 };
+
 async function stop(player: playerDiscordBot, mapPlayers: mapPlayers) {
   await player.stop();
   await player.disconect();
