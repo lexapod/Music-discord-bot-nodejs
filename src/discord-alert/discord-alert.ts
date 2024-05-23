@@ -1,6 +1,5 @@
 import type { TextChannel } from "discord.js";
 import type Discord from "discord.js";
-import EventEmitter from "node:events";
 
 import { botReplys } from "../consts/bot-replys";
 import { createYoutubeEmbed } from "../create-youtube-embed/create-youtube-embed";
@@ -33,20 +32,3 @@ export class DiscordAlertChannel {
     }
   }
 }
-
-// export function registerAlertEmitter(channel: TextChannel) {
-//     const eventEmitter = new EventEmitter();
-//     eventEmitter.on("alert", async (url: string, length: number) => {
-//       try {
-//         const embedYoutube = await createYoutubeEmbed(
-//           url,
-//           botReplys.trackAddedSuccess,
-//           length
-//         );
-//         await channel.send({ embeds: [embedYoutube] });
-//       } catch (error) {
-//         await channel.send(botReplys.errorAddInQueue);
-//       }
-//     });
-//     return eventEmitter;
-//   }

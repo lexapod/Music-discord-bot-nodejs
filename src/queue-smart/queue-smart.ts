@@ -1,13 +1,13 @@
 import type { AudioResource } from "@discordjs/voice";
-
+import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
 type youtubeInfo = {
   url: string;
   resource: AudioResource | undefined;
   failed?: boolean;
 };
+
 import EventEmitter from "node:events";
 import { downloadResources } from "../download-resources/download-resources";
-import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
 import { botReplys } from "../consts/bot-replys";
 
 type queueYoutube = youtubeInfo[];
