@@ -1,4 +1,4 @@
-import type { Client, Message } from "discord.js";
+import type { Message } from "discord.js";
 import type { mapPlayers, mapQueueSmart } from "../index";
 import type {
   Command,
