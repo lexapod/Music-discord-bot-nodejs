@@ -15,13 +15,16 @@ export async function newMusic(
   mapPlayers: mapPlayers,
   mapQueueSmart: mapQueueSmart
 ): Promise<void> {
+
   if (!message.member?.voice?.channel?.id || !message.guild?.id) {
     return;
   }
+  
   const queueSmartInMap = mapQueueSmart.get(message.guild.id);
   if (queueSmartInMap) {
     return await queueSmartInMap.addMusic(youtubeUrl);
   }
+
   const discordAlert = new DiscordAlertChannel(
     message.channel as Discord.TextChannel
   );
