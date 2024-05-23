@@ -39,9 +39,6 @@ export class playerDiscordBot {
     this.VoiceConnection.subscribe(this.Audioplayer);
     await this.addListnerOnPlayer();
   }
-  async addMusicInQueue(url: string) {
-    await this.queue.addMusic(url);
-  }
   async play(resource: AudioResource) {
     this.Audioplayer.play(resource);
   }
