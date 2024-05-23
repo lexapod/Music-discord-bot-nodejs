@@ -18,8 +18,6 @@ export async function newMusic(
   if (!message.member?.voice?.channel?.id || !message.guild?.id) {
     return;
   }
-
-  // const playerInMap = mapPlayers.get(message.guild.id);
   const queueSmartInMap = mapQueueSmart.get(message.guild.id);
   if (queueSmartInMap) {
     return await queueSmartInMap.addMusic(youtubeUrl);
