@@ -1,8 +1,9 @@
 import type { EmbedBuilder, Message } from "discord.js";
+import type { mapQueueSmart } from "../index";
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
-import type { mapQueueSmart } from "../index";
+
 
 enum Button {
   first = "1",
@@ -162,6 +163,11 @@ export class Pagination {
           newIndex = this.pages.length - 1;
           break;
         default:
+          interaction.reply({
+            content: `${interaction?.member?.user} You idiot`,
+            ephemeral: true,
+          });
+
           break;
       }
       if (newIndex !== undefined) {
