@@ -59,18 +59,19 @@ const client = new Client({
   // partials: ["CHANNEL", "MESSAGE"],
 });
 
-// @ts-ignore
 client.on("messageCreate", async (message: Message) => {
   if (
     !message.content.startsWith(prefix) ||
-    message.author.bot ||
+     message.author.bot ||
     !message.guild?.id
   )
     return;
 
   const voiceChannel = message.member?.voice?.channel;
-  if (!voiceChannel)
-    return await message.channel.send(botReplys.userNotInVoice);
+  if (!voiceChannel) {
+    await message.channel.send(botReplys.userNotInVoice);
+    return;
+  }
 
   const player = mapPlayers.get(message.guild.id);
 

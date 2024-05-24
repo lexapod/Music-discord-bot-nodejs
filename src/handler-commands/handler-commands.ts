@@ -10,6 +10,7 @@ import { pauseCommand } from "../commands/pause";
 import { resumeCommand } from "../commands/resume";
 import { stopCommand } from "../commands/stop";
 import { botReplys } from "../consts/bot-replys";
+import { searchCommand } from "../commands/search";
 
 export interface CommandExecuteArgs {
   player?: playerDiscordBot;
@@ -31,7 +32,18 @@ const commandRegistry: { [key: string]: Command } = {
   pause: pauseCommand,
   resume: resumeCommand,
   stop: stopCommand,
+  search:searchCommand
 };
+
+function parseMessage(str:string){
+  if (str.startsWith("play")) {
+    return "play";
+  }
+  if (str.startsWith("search")) {
+   return "search";
+  }
+  return str
+}
 
 export async function handleCommands(
   player: playerDiscordBot | undefined,
@@ -40,10 +52,8 @@ export async function handleCommands(
   client: Client,
   mapQueueSmart: mapQueueSmart
 ) {
-  let commandName = message.content.slice(prefix.length).trim();
-  if (message.content.startsWith("?play")) {
-    commandName = "play";
-  }
+  const commandName = parseMessage(message.content.slice(prefix.length).trim())
+
 
   const command = commandRegistry[commandName];
 
