@@ -1,22 +1,13 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  EmbedBuilder,
-  type TextChannel,
-  type Message,
-  Embed,
-} from "discord.js";
+import type { Message } from "discord.js";
 import type { mapPlayers, mapQueueSmart } from "../index";
 import type {
   Command,
   CommandExecuteArgs,
 } from "../handler-commands/handler-commands";
 
+import { EmbedBuilder } from "discord.js";
+import play from "play-dl";
 import { botReplys } from "../consts/bot-replys";
-import { newMusic } from "../new-music/new-music";
-import playY from "play-dl";
-import { createYoutubeEmbed } from "../utils/create-youtube-embed";
 import { Pagination } from "../pagination/pagination-ds";
 
 export const searchCommand: Command = {
@@ -36,13 +27,12 @@ async function search(
   mapPlayers: mapPlayers,
   mapQueueSmart: mapQueueSmart
 ) {
-
   const query: string = message.content.split("search ")[1];
   if (!query) {
     return await message.reply(botReplys.wrongUrlProvided);
   }
 
-  const arrayYoutubeVideos = await playY.search(query);
+  const arrayYoutubeVideos = await play.search(query);
   const embeds = arrayYoutubeVideos.map((x) => {
     return new EmbedBuilder()
       .setColor("Random")
@@ -56,7 +46,7 @@ async function search(
           value: `${x?.description} ${x?.channel}`,
         },
         {
-          name: "url",
+          name: "Url",
           value: `${x.url}`,
         },
         {
