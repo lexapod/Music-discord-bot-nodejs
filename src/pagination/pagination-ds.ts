@@ -69,7 +69,6 @@ export class Pagination {
 
     const message2 = await this.message.channel.send({
       embeds: [this.pages[this.indexPage]],
-      // ...(this.files && { files: [this.files[this.index]] }),
       components: [
         new ActionRowBuilder<ButtonBuilder>({
           components: buttons.map((x) => {
@@ -78,7 +77,7 @@ export class Pagination {
               style: ButtonStyle.Secondary,
               type: 2,
               label: x.label,
-              customId: String(x.customId),
+              customId: x.customId,
             });
           }),
         }),
@@ -122,11 +121,10 @@ export class Pagination {
           break;
 
         case Button.stop: {
-          // @ts-ignore
-          const queue = mapQueueSmart.get(this.message?.guildId);
+          const queue = mapQueueSmart.get(this.message?.guild?.id||"");
           if (queue) {
             // @ts-ignore
-            queue.addMusic(this.pages[this.indexPage].data.fields[2].value);
+            await queue.addMusic(this.pages[this.indexPage].data.fields[2].value);
             await interaction.reply({
               content: "Success added",
               ephemeral: true,
