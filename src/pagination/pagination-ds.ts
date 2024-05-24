@@ -3,8 +3,6 @@ import type { mapQueueSmart } from "../index";
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
-
-
 enum Button {
   first = "1",
   prev = "2",
@@ -28,7 +26,7 @@ const buttons = [
   },
   {
     style: ButtonStyle.Danger,
-    label: "Play",
+    label: "Add in Queue",
     emoji: "▶️",
     customId: Button.stop,
   },
