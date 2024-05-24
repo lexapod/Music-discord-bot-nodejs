@@ -54,7 +54,6 @@ export async function handleCommands(
 ) {
   const commandName = parseMessage(message.content.slice(prefix.length).trim())
 
-
   const command = commandRegistry[commandName];
 
   if (!command?.execute) {
