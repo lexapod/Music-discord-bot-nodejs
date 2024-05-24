@@ -47,11 +47,11 @@ async function search(
         },
         {
           name: "Url",
-          value: `${x.url}`,
+          value: x.url,
         },
         {
           name: "Time",
-          value: `${x.durationRaw}`,
+          value: x.durationRaw,
         },
       ])
 
