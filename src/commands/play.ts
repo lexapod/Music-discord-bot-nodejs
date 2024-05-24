@@ -27,7 +27,6 @@ async function play(
 ) {
   const YoutubeURL: string = message.content.split("play ")[1];
   if (!YoutubeURL) {
-
     return await message.reply(botReplys.wrongUrlProvided);
   }
 
