@@ -1,5 +1,6 @@
 import type { AudioResource } from "@discordjs/voice";
 import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
+import type { mapQueueSmart } from "../index";
 type youtubeInfo = {
   url: string;
   resource: AudioResource | undefined;
@@ -9,7 +10,6 @@ type youtubeInfo = {
 import EventEmitter from "node:events";
 import { downloadResources } from "../utils/download-resources";
 import { botReplys } from "../consts/bot-replys";
-import type { mapQueueSmart } from "..";
 
 type queueYoutube = youtubeInfo[];
 
