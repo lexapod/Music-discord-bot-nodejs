@@ -10,7 +10,7 @@ import { botReplys } from "../consts/bot-replys";
 
 export const pauseCommand: Command = {
   name: "pause",
-  description: "pause",
+  description: "pause Song in Player",
   execute: async ({ player, message }: CommandExecuteArgs) => {
     if (!player) {
       await message.channel.send(botReplys.playerNotPlaying);

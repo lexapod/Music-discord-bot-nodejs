@@ -10,7 +10,7 @@ import { newMusic } from "../new-music/new-music";
 
 export const playCommand: Command = {
   name: "play",
-  description: "play",
+  description: "play song",
   execute: async ({
     message,
     mapPlayers,

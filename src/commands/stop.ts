@@ -8,8 +8,8 @@ import type {
 import { botReplys } from "../consts/bot-replys";
 
 export const stopCommand: Command = {
-  name: "?stop",
-  description: "stop",
+  name: "stop",
+  description: "stop Player",
   execute: async ({ player, message, mapPlayers }: CommandExecuteArgs) => {
     if (!player) {
       await message.channel.send(botReplys.playerNotPlaying);
