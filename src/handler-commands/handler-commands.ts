@@ -32,18 +32,8 @@ const commandRegistry: { [key: string]: Command } = {
   pause: pauseCommand,
   resume: resumeCommand,
   stop: stopCommand,
-  search:searchCommand
+  search: searchCommand,
 };
-
-function parseMessage(str:string){
-  if (str.startsWith("play")) {
-    return "play";
-  }
-  if (str.startsWith("search")) {
-   return "search";
-  }
-  return str
-}
 
 export async function handleCommands(
   player: playerDiscordBot | undefined,
@@ -52,8 +42,7 @@ export async function handleCommands(
   client: Client,
   mapQueueSmart: mapQueueSmart
 ) {
-  const commandName = parseMessage(message.content.slice(prefix.length).trim())
-
+  const commandName = message.content.slice(prefix.length).trim().split(" ")[0];
   const command = commandRegistry[commandName];
 
   if (!command?.execute) {
