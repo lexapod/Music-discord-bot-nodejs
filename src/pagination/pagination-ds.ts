@@ -97,7 +97,7 @@ export class Pagination {
       switch (customId) {
         case Button.first:
           if (this.indexPage === 0) {
-            interaction.reply({
+            await interaction.reply({
               content: `${interaction?.member?.user} You idiot`,
               ephemeral: true,
             });
@@ -109,7 +109,7 @@ export class Pagination {
           if (this.indexPage > 0) {
             newIndex = this.indexPage - 1;
           } else {
-            interaction.reply({
+            await interaction.reply({
               content: `${interaction?.member?.user} You idiot\ni Cant move back`,
               ephemeral: true,
             });
@@ -119,10 +119,11 @@ export class Pagination {
           break;
 
         case Button.stop: {
-          const queue = mapQueueSmart.get(this.message?.guild?.id||"");
+          const queue = mapQueueSmart.get(this.message?.guild?.id || "");
           if (queue) {
-            // @ts-ignore
-            await queue.addMusic(this.pages[this.indexPage].data.fields[2].value);
+            await queue.addMusic(   // @ts-ignore
+              this.pages[this.indexPage].data.fields[2].value
+            );
             await interaction.reply({
               content: "Success added",
               ephemeral: true,
@@ -150,7 +151,7 @@ export class Pagination {
 
         case Button.last:
           if (this.indexPage === this.pages.length - 1) {
-            interaction.reply({
+            await interaction.reply({
               content: `${interaction?.member?.user} You idiot`,
               ephemeral: true,
             });
@@ -159,7 +160,7 @@ export class Pagination {
           newIndex = this.pages.length - 1;
           break;
         default:
-          interaction.reply({
+          await interaction.reply({
             content: `${interaction?.member?.user} You idiot`,
             ephemeral: true,
           });
