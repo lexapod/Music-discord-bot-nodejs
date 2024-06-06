@@ -17,3 +17,10 @@ npm uninstall sodium & npm uninstall libsodium-wrappers
 
 npm install @discordjs/voice libsodium-wrappers
 
+Usage command
+
+play youtube video url example play https://www.youtube.com/watch?v=dQw4w9WgXcQ
+pause
+resume
+stop
+search query  example Rick Astley 
