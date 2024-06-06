@@ -21,7 +21,7 @@ Usage command
 
 standart prefix ?
 
-play youtube video url example play https://www.youtube.com/watch?v=dQw4w9WgXcQ\
+play youtube video url example play https://www.youtube.com/watch?v=dQw4w9WgXcQ \
 pause\
 resume\
 stop\
