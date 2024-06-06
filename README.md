@@ -25,4 +25,4 @@ play youtube video url example play https://www.youtube.com/watch?v=dQw4w9WgXcQ 
 pause\
 resume\
 stop\
-search query  example search Rick Astley\
+search query  example search Rick Astley
