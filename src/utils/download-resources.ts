@@ -11,7 +11,7 @@ export async function downloadResources(
     try {
       const stream = await play.stream(youtubeUrl);
       return createAudioResource(stream.stream, {
-        inputType: stream.type,
+        inputType: stream.type
       });
     } catch (error) {
       console.log(error);

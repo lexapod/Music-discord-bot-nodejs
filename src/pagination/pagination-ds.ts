@@ -90,7 +90,6 @@ export class Pagination {
       },
     });
     interactionCollector.on("collect", async (interaction) => {
-      //   console.log(interaction);
       const { customId } = interaction;
 
       let newIndex: number | undefined;
@@ -121,7 +120,8 @@ export class Pagination {
         case Button.stop: {
           const queue = mapQueueSmart.get(this.message?.guild?.id || "");
           if (queue) {
-            await queue.addMusic(   // @ts-ignore
+            await queue.addMusic(
+              // @ts-ignore
               this.pages[this.indexPage].data.fields[2].value
             );
             await interaction.reply({
