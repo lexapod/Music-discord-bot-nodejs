@@ -7,7 +7,7 @@ import type {
 import type { queueSmart } from "../queue-smart/queue-smart";
 import type { DiscordAlertChannel } from "../discord-alert/discord-alert";
 
-import { AudioPlayerStatus } from "@discordjs/voice";
+import { AudioPlayerStatus ,createAudioResource} from "@discordjs/voice";
 import { botReplys } from "../consts/bot-replys";
 
 export class playerDiscordBot {
@@ -67,6 +67,11 @@ export class playerDiscordBot {
     } catch (error) {}
   }
   async addListnerOnPlayer() {
+
+    this.Audioplayer.on('error', error => {
+      console.error(`Error: ${error.message} with resource`);
+    });
+
     this.Audioplayer.on(
       //@ts-ignore
       "stateChange",

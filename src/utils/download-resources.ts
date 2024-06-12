@@ -1,18 +1,16 @@
 import type { AudioResource } from "@discordjs/voice";
 
-import { createAudioResource } from "@discordjs/voice";
+import { createAudioResource, StreamType } from "@discordjs/voice";
 
-import play from "play-dl";
+import ytdlDiscord from "ytdl-core-discord";
 
 export async function downloadResources(
   youtubeUrl: string
 ): Promise<AudioResource<unknown> | undefined> {
   for (let i = 0; i < 3; i++) {
     try {
-      const stream = await play.stream(youtubeUrl);
-      return createAudioResource(stream.stream, {
-        inputType: stream.type
-      });
+      const stream = await ytdlDiscord(youtubeUrl);
+      return createAudioResource(stream, { inputType: StreamType.Opus });
     } catch (error) {
       console.log(error);
     }
