@@ -4,7 +4,6 @@ import type { queueSmart } from "./queue-smart/queue-smart";
 
 import { GatewayIntentBits, Client } from "discord.js";
 import play from "play-dl";
-
 import { prefix } from "./consts/prefix";
 import { checkStatusbot } from "./voice-status/check-status-voice";
 import { handleCommands } from "./handler-commands/handler-commands";
@@ -62,7 +61,7 @@ const client = new Client({
 client.on("messageCreate", async (message: Message) => {
   if (
     !message.content.startsWith(prefix) ||
-     message.author.bot ||
+    message.author.bot ||
     !message.guild?.id
   )
     return;
