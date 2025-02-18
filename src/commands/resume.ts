@@ -11,7 +11,7 @@ import { botReplys } from "../consts/bot-replys";
 
 export const resumeCommand: Command = {
   name: "resume",
-  description: "resume Song in Player",
+  description: "Resume playing song",
   execute: async ({ player, message }: CommandExecuteArgs) => {
     if (!player) {
       await message.channel.send(botReplys.playerNotPlaying);
