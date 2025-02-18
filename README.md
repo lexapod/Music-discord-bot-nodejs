@@ -28,8 +28,13 @@ npm install @discordjs/voice libsodium-wrappers
 ## Examples
 
 /Play `url` - Playing youtube URL.
+
 /Pause - Pauses the song.
+
 /Resume - Resumes the song.
+
 /Stop - Stops the song.
+
 /Skip - Skips the song.
+
 /search `query` - Searching in youtube.
