@@ -90,7 +90,7 @@ export class playerDiscordBot {
               const music = await this.queue.getMusic();
               if (music?.failed) {
                 await this.DiscordAlertChannel.sendSimpleAlert(
-                  `❌Failed playing this shit\n${music.url}`
+                  `❌Failed playing \n${music.url}`
                 );
                 continue;
               }

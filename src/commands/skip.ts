@@ -10,7 +10,7 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 
 export const skipCommand: Command = {
   name: "skip",
-  description: "skip Song in Player",
+  description: "Skipping the song",
   execute: async ({ player, message }: CommandExecuteArgs) => {
     if (!player) {
       await message.channel.send(botReplys.playerNotPlaying);
