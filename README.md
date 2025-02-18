@@ -1,29 +1,35 @@
-# Discord Audio bot
-Discord Audio Bot
-allows listen music from Youtube
+# NodeJS Music
+
+## Discord Music Bot
+
+Allows to listen music from YouTube.
+
+## Instalation
+
 1. git clone https://github.com/lexapod/Music-discord-bot-nodejs.git & npm ci 
 2. Insert varibles in configExample  
-3. Run autorize.js and insert coockie
+3. Run autorize.js and insert cookie
 4. Rename configExample to config
 5. npm run start
-6. Add bot on your server  and enjoy
+6. Add bot on your server
 
+### Docker usage recommend
 
-Docker usage recommend
-
-on mac os  intel if u get error need do
+## On MacOS if you get an error do:
 
 npm uninstall sodium & npm uninstall libsodium-wrappers
 
 npm install @discordjs/voice libsodium-wrappers
 
-Usage command
+## Usage command
 
-standart prefix ?
+# Standart prefix: `!`
 
-play youtube video url example play https://www.youtube.com/watch?v=dQw4w9WgXcQ \
-pause\
-resume\
-stop\
-skip\
-search query  example search Rick Astley
+## Examples
+
+/Play `url` - Playing youtube URL.
+/Pause - Pauses the song.
+/Resume - Resumes the song.
+/Stop - Stops the song.
+/Skip - Skips the song.
+/search `query` - Searching in youtube.
