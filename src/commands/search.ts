@@ -12,7 +12,7 @@ import { Pagination } from "../pagination/pagination-ds";
 
 export const searchCommand: Command = {
   name: "search",
-  description: "search video in Youtube",
+  description: "Search video in Youtube",
   execute: async ({
     message,
     mapPlayers,
